@@ -12,13 +12,13 @@ def kruskal_wallis(X, Y):
 
     X=X.to_numpy()[:,1:]
 
-    ixPhishing = np.where(Y==1)
-    ixNotPhishing = np.where(Y==0)
+    ixLegitimate = np.where(Y==1)
+    ixNotLegitimate = np.where(Y==0)
    
     Hs={}
 
     for i in range(np.shape(X)[1]):
-        st=stats.kruskal(X[ixPhishing,i].flatten(), X[ixNotPhishing,i].flatten())
+        st=stats.kruskal(X[ixLegitimate,i].flatten(), X[ixNotLegitimate,i].flatten())
         Hs[fnames[i]]=st
 
     
@@ -96,7 +96,7 @@ def remove_worst_features(X, Hs, percentage=0.2):
 
 
 #function to perform PCA and check which components to keep based on kaiser test
-def analyse_pca(X):
+def analyse_pca(X, show_img=True):
     pca = PCA()
     pca.fit(X)
 
@@ -117,13 +117,46 @@ def analyse_pca(X):
     print("Optimal number of components according to Kaiser: "+str(optimal_components))
 
     #visualizar kaiser test
-    fig = px.scatter(x=np.arange(1,len(pca.explained_variance_)+1,1), y=pca.explained_variance_,
-                 labels=dict(x="PC",y="Explained Variance"))
-    fig.add_hline(y=1,line_width=3, line_dash="dash", line_color="red")
-    fig.update_traces(marker_size=10)
-    fig.show()
+    if show_img:
+        fig = px.scatter(x=np.arange(1,len(pca.explained_variance_)+1,1), y=pca.explained_variance_,
+                    labels=dict(x="PC",y="Explained Variance"))
+        fig.add_hline(y=1,line_width=3, line_dash="dash", line_color="red")
+        fig.update_traces(marker_size=10)
+        fig.show()
 
     print("Variance (%) retained accourding to Kaiser: "+str(pca.explained_variance_[0]**2/(np.sum(pca.explained_variance_**2))*100))
     print("Variance (%) retained accourding to Scree: "+str(np.sum(pca.explained_variance_[0:6]**2)/(np.sum(pca.explained_variance_**2))*100))
 
-    return W[:optimal_components]
+    # Apply PCA with the optimal number of components
+    pca_optimal = PCA(n_components=optimal_components)
+    X_pca = pca_optimal.fit_transform(X)
+
+    # Return transformed dataset as DataFrame
+    return pd.DataFrame(X_pca, columns=[f"PC{i+1}" for i in range(optimal_components)])
+    
+
+
+def analyse_lda(X, Y):
+    """
+    Applies Linear Discriminant Analysis (LDA) for feature transformation.
+
+    Args:
+        X (pd.DataFrame): The feature matrix.
+        Y (pd.Series): The target variable (class labels).
+
+    Returns:
+        pd.DataFrame: The transformed feature matrix after applying LDA.
+    """
+    # Initialise the LDA model
+    lda = LDA()
+
+    # Fit the LDA model to the data and transform it
+    X_transformed = lda.fit_transform(X, Y)
+
+    # Convert the transformed array back to a Pandas DataFrame
+    X_transformed_df = pd.DataFrame(X_transformed, index=X.index)
+    X_transformed_df.columns = [f'LDA_Component_{i+1}' for i in range(X_transformed.shape[1])]
+
+    return X_transformed_df
+
+
