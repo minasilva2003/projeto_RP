@@ -4,6 +4,7 @@ from scipy.spatial.distance import mahalanobis
 from scipy.linalg import inv
 import pandas as pd
 
+
 def min_euclidean_distance_classifier(X_train, y_train, X_test):
     """
     Creates and applies a minimum Euclidean distance classifier.
@@ -66,13 +67,16 @@ def min_mahalanobis_distance_classifier(X_train, y_train, X_test):
 
     for label in class_labels:
         X_class = X_train[y_train == label]
+        
         class_means[label] = np.mean(X_class, axis=0)
         # Calculate the covariance matrix for each class
-        class_covariances[label] = np.cov(X_class, rowvar=False)
+        cov = np.cov(X_class, rowvar=False)
+        class_covariances[label] = np.atleast_2d(cov)  # Ensures 2D structure
+
         # Calculate the inverse of the covariance matrix; handle potential singular matrices
         try:
             class_inv_covariances[label] = inv(class_covariances[label])
-        except np.linalg.LinAlgError:
+        except Exception as e:
             print(f"Warning: Covariance matrix for class {label} is singular. Using pseudo-inverse.")
             class_inv_covariances[label] = np.linalg.pinv(class_covariances[label])
 
@@ -128,3 +132,44 @@ def calculate_specificity(y_true, y_pred, negative_label=0):
     if (true_negatives + false_positives) == 0:
         return 0.0
     return true_negatives / (true_negatives + false_positives)
+
+
+def fisher_lda_classifier(X_train, y_train, X_test):
+    """
+    Fisher's LDA Minimum Distance Classifier.
+
+    Args:
+        X_train (np.array): Training feature matrix.
+        y_train (np.array): Training labels.
+        X_test (np.array): Test feature matrix.
+
+    Returns:
+        np.array: Predicted class labels.
+    """
+    # Ensure numpy arrays
+    X_train = np.asarray(X_train)
+    y_train = np.asarray(y_train)
+    X_test = np.asarray(X_test)
+
+    # Compute class means
+    class_labels = np.unique(y_train)
+    m0 = np.mean(X_train[y_train == class_labels[0]], axis=0)
+    m1 = np.mean(X_train[y_train == class_labels[1]], axis=0)
+
+    # Compute within-class scatter matrix Sw
+    S0 = np.cov(X_train[y_train == class_labels[0]], rowvar=False)
+    S1 = np.cov(X_train[y_train == class_labels[1]], rowvar=False)
+    Sw = S0 + S1
+
+    # Compute LDA projection vector
+    w = np.linalg.inv(Sw).dot(m1 - m0)
+
+    # Project means and test data
+    m0_proj = np.dot(m0, w)
+    m1_proj = np.dot(m1, w)
+    X_test_proj = X_test @ w
+
+    # Classify based on minimum Euclidean distance in 1D
+    predictions = [class_labels[0] if abs(x - m0_proj) < abs(x - m1_proj) else class_labels[1] for x in X_test_proj]
+
+    return np.array(predictions)

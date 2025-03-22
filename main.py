@@ -12,7 +12,7 @@ from sklearn.metrics import accuracy_score
 
 from pre_process_funcs import normalize_features, drop_categorical_variables, drop_binary_variables
 from feature_analysis_funcs import kruskal_wallis, generate_cov_matrix, remove_worst_features, analyse_pca, analyse_lda
-from min_dist_classifiers import min_euclidean_distance_classifier, min_mahalanobis_distance_classifier, calculate_sensitivity, calculate_specificity
+from min_dist_classifiers import min_euclidean_distance_classifier, min_mahalanobis_distance_classifier, calculate_sensitivity, calculate_specificity, fisher_lda_classifier
 #________________________________________________________________________________
 
 #0. ler dataset
@@ -70,20 +70,20 @@ print(X.shape)
 X_pca = analyse_pca(X, show_img=False)
 print(X_pca.shape)
 
-#X_lda = analyse_lda(X, Y)
-#print(X_lda.shape)
+X_lda = analyse_lda(X, Y)
+print(X_lda.shape)
 
 
 #____________________________________________________________________________________
 #10. min distance classifiers
-# Split the data into full training and testing sets
-X_train_full, X_test, y_train_full, y_test = train_test_split(X, Y, test_size=0.3, random_state=42)
+# Split the data into full training and testing sets (CAN BE PCA OR LDA DATASET)
+X_train_full, X_test, y_train_full, y_test = train_test_split(X_lda, Y, test_size=0.3, random_state=42)
 
 n_folds = 5
 euclidean_accuracy_scores = []
-euclidean_sensitivity_scores = []
+euclidean_specificity_scores = []
 mahalanobis_accuracy_scores = []
-mahalanobis_sensitivity_scores = []
+mahalanobis_specificity_scores = []
 fold_size = len(X_train_full) // n_folds
 indices = np.arange(len(X_train_full))
 
@@ -94,42 +94,77 @@ for i in range(n_folds):
     end = (i + 1) * fold_size
     if i == n_folds - 1:
         val_indices = indices[start:]
-        train_indices = np.concatenate((indices[:start]))
+        train_indices = indices[:start]
     else:
         val_indices = indices[start:end]
         train_indices = np.concatenate((indices[:start], indices[end:]))
 
-    X_train_fold, X_val_fold = X_train_full[train_indices], X_train_full[val_indices]
-    y_train_fold, y_val_fold = y_train_full[train_indices], y_val_full[val_indices]
+    X_train_fold, X_val_fold = X_train_full.iloc[train_indices], X_train_full.iloc[val_indices]
+    y_train_fold, y_val_fold = y_train_full.iloc[train_indices], y_train_full.iloc[val_indices]
 
     # Train and evaluate Euclidean classifier
     y_pred_euclidean = min_euclidean_distance_classifier(X_train_fold, y_train_fold, X_val_fold)
     accuracy_euclidean = accuracy_score(y_val_fold, y_pred_euclidean)
-    sensitivity_euclidean = calculate_sensitivity(y_val_fold, y_pred_euclidean)
+    specificity_euclidean = calculate_specificity(y_val_fold, y_pred_euclidean)
     euclidean_accuracy_scores.append(accuracy_euclidean)
-    euclidean_sensitivity_scores.append(sensitivity_euclidean)
-    print(f"Fold {i+1} Euclidean Accuracy: {accuracy_euclidean:.2f}, Sensitivity: {sensitivity_euclidean:.2f}")
-
+    euclidean_specificity_scores.append(specificity_euclidean)
+   
     # Train and evaluate Mahalanobis classifier
     y_pred_mahalanobis = min_mahalanobis_distance_classifier(X_train_fold, y_train_fold, X_val_fold)
     accuracy_mahalanobis = accuracy_score(y_val_fold, y_pred_mahalanobis)
-    sensitivity_mahalanobis = calculate_sensitivity(y_val_fold, y_pred_mahalanobis)
+    specificity_mahalanobis = calculate_specificity(y_val_fold, y_pred_mahalanobis)
     mahalanobis_accuracy_scores.append(accuracy_mahalanobis)
-    mahalanobis_sensitivity_scores.append(sensitivity_mahalanobis)
-    print(f"Fold {i+1} Mahalanobis Accuracy: {accuracy_mahalanobis:.2f}, Sensitivity: {sensitivity_mahalanobis:.2f}")
-
+    mahalanobis_specificity_scores.append(specificity_mahalanobis)
+    
 print("\n*** Summary of Euclidean Distance Classifier Cross-validation ***")
-print(f"Cross-validation Accuracy Scores: {euclidean_accuracy_scores}")
-print(f"Mean Cross-validation Accuracy: {np.mean(euclidean_accuracy_scores):.2f}")
-print(f"Standard Deviation of Cross-validation Accuracy: {np.std(euclidean_accuracy_scores):.2f}")
-print(f"Cross-validation Sensitivity Scores: {euclidean_sensitivity_scores}")
-print(f"Mean Cross-validation Sensitivity: {np.mean(euclidean_sensitivity_scores):.2f}")
-print(f"Standard Deviation of Cross-validation Sensitivity: {np.std(euclidean_sensitivity_scores):.2f}")
+print(f"Mean Cross-validation Accuracy: {np.mean(euclidean_accuracy_scores):.3f}")
+print(f"Standard Deviation of Cross-validation Accuracy: {np.std(euclidean_accuracy_scores):.3f}")
+print(f"Mean Cross-validation Specificity: {np.mean(euclidean_specificity_scores):.3f}")
+print(f"Standard Deviation of Cross-validation Specificity: {np.std(euclidean_specificity_scores):.3f}")
 
 print("\n*** Summary of Mahalanobis Distance Classifier Cross-validation ***")
-print(f"Cross-validation Accuracy Scores: {mahalanobis_accuracy_scores}")
-print(f"Mean Cross-validation Accuracy: {np.mean(mahalanobis_accuracy_scores):.2f}")
-print(f"Standard Deviation of Cross-validation Accuracy: {np.std(mahalanobis_accuracy_scores):.2f}")
-print(f"Cross-validation Sensitivity Scores: {mahalanobis_sensitivity_scores}")
-print(f"Mean Cross-validation Sensitivity: {np.mean(mahalanobis_sensitivity_scores):.2f}")
-print(f"Standard Deviation of Cross-validation Sensitivity: {np.std(mahalanobis_sensitivity_scores):.2f}")
+print(f"Mean Cross-validation Accuracy: {np.mean(mahalanobis_accuracy_scores):.3f}")
+print(f"Standard Deviation of Cross-validation Accuracy: {np.std(mahalanobis_accuracy_scores):.3f}")
+print(f"Mean Cross-validation Specificity: {np.mean(mahalanobis_specificity_scores):.3f}")
+print(f"Standard Deviation of Cross-validation Specificity: {np.std(mahalanobis_specificity_scores):.3f}")
+
+
+#____________________________________________________________________________________
+#11. Fisher LDA
+# Split the data into full training and testing sets
+X_train_full, X_test, y_train_full, y_test = train_test_split(X, Y, test_size=0.3, random_state=42)
+
+n_folds = 5
+fisher_accuracy_scores = []
+fisher_specificity_scores = []
+fold_size = len(X_train_full) // n_folds
+indices = np.arange(len(X_train_full))
+
+print("\n*** Cross-validation for FISHER LDA Classifier ***")
+for i in range(n_folds):
+    # Create validation set and training set for this fold
+    start = i * fold_size
+    end = (i + 1) * fold_size
+    if i == n_folds - 1:
+        val_indices = indices[start:]
+        train_indices = indices[:start]
+    else:
+        val_indices = indices[start:end]
+        train_indices = np.concatenate((indices[:start], indices[end:]))
+
+    X_train_fold, X_val_fold = X_train_full.iloc[train_indices], X_train_full.iloc[val_indices]
+    y_train_fold, y_val_fold = y_train_full.iloc[train_indices], y_train_full.iloc[val_indices]
+
+    # Train and evaluate Fisher classifier
+    y_pred_fisher = fisher_lda_classifier(X_train_fold, y_train_fold, X_val_fold)
+    accuracy_fisher = accuracy_score(y_val_fold, y_pred_fisher)
+    specificity_fisher = calculate_specificity(y_val_fold, y_pred_fisher)
+    fisher_accuracy_scores.append(accuracy_fisher)
+    fisher_specificity_scores.append(specificity_fisher)
+    
+print("\n*** Summary of Fisher Classifier Cross-validation ***")
+print(f"Mean Cross-validation Accuracy: {np.mean(fisher_accuracy_scores):.3f}")
+print(f"Standard Deviation of Cross-validation Accuracy: {np.std(fisher_accuracy_scores):.3f}")
+print(f"Mean Cross-validation Specificity: {np.mean(fisher_specificity_scores):.3f}")
+print(f"Standard Deviation of Cross-validation Specificity: {np.std(fisher_specificity_scores):.3f}")
+
