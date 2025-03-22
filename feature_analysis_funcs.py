@@ -5,39 +5,59 @@ from sklearn.decomposition import PCA
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
 import pandas as pd
 
-#function to perform kruskal_wallis test for feature selection
+
 def kruskal_wallis(X, Y):
+    """
+    Performs the Kruskal-Wallis test for feature selection by ranking features based on their 
+    statistical significance in distinguishing between two classes.
 
-    fnames=X.columns[1:]
+    Parameters:
+        X (pd.DataFrame): Feature dataset.
+        Y (pd.Series): Target labels (binary classification: 0 or 1).
 
-    X=X.to_numpy()[:,1:]
+    Returns:
+        list: A ranked list of features (sorted from most to least significant) along with their 
+              Kruskal-Wallis test statistics.
+    """
+    
+    fnames = X.columns[1:]  # Exclude the first feature
+    X = X.to_numpy()[:,1:]
 
-    ixLegitimate = np.where(Y==1)
-    ixNotLegitimate = np.where(Y==0)
-   
-    Hs={}
+    ixLegitimate = np.where(Y == 1)
+    ixNotLegitimate = np.where(Y == 0)
+
+    Hs = {}
 
     for i in range(np.shape(X)[1]):
-        st=stats.kruskal(X[ixLegitimate,i].flatten(), X[ixNotLegitimate,i].flatten())
-        Hs[fnames[i]]=st
+        st = stats.kruskal(X[ixLegitimate, i].flatten(), X[ixNotLegitimate, i].flatten())
+        Hs[fnames[i]] = st
 
-    
-    Hs = sorted(Hs.items(), key=lambda x: x[1],reverse=True)  
+    Hs = sorted(Hs.items(), key=lambda x: x[1], reverse=True)  
 
-    print("Ranked features using Kruskal Wallis")
+    print("Ranked features using Kruskal-Wallis test:")
 
     for f in Hs:
-        print(f[0]+"-->"+str(f[1]))
+        print(f[0] + " --> " + str(f[1]))
 
     return Hs
 
 
-
-#function to generate covariance matrix and return highly correlated feature pairs
 def generate_cov_matrix(X, show_img=True):
+    """
+    Computes the covariance matrix of the dataset and identifies highly correlated feature pairs.
+
+    Parameters:
+        X (pd.DataFrame): Feature dataset.
+        show_img (bool, optional): Whether to visualize the covariance matrix using Plotly. 
+                                   Defaults to True.
+
+    Returns:
+        tuple: 
+            - pd.DataFrame: Covariance matrix with feature names as row/column labels.
+            - list: A sorted list of highly correlated feature pairs (absolute correlation > 0.8).
+    """
 
     feature_names = X.columns.tolist()
-
     X = X.to_numpy()
     
     # Compute correlation matrix for all features
@@ -57,7 +77,7 @@ def generate_cov_matrix(X, show_img=True):
 
     corrMat = pd.DataFrame(corrMat, index=feature_names, columns=feature_names)
 
-    # Find feature pairs with correlation above threshold
+    # Find feature pairs with correlation above threshold (0.8)
     high_corr_pairs = []
     for i in range(len(feature_names)):
         for j in range(i + 1, len(feature_names)):  # Only upper triangle
@@ -71,7 +91,6 @@ def generate_cov_matrix(X, show_img=True):
         print(f"Features: {pair[0]} & {pair[1]} --> Correlation: {pair[2]:.2f}")
 
     return corrMat, high_corr_pairs
-
 
 #function to remove worst features based on kruskal_wallis test
 def remove_worst_features(X, Hs, percentage=0.2):

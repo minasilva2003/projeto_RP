@@ -1,12 +1,6 @@
 import pandas as pd
-from sklearn.preprocessing import MinMaxScaler
 from scipy import stats
 import numpy as np
-import plotly.express as px
-from sklearn.decomposition import PCA
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
-import matplotlib.pyplot as plt
-from scipy.linalg import svd
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
@@ -23,7 +17,7 @@ Y = url_dataset.iloc[:,-1]
 
 #_________________________________________________________________________________
 
-#1. remover categóricas e binárias
+#1. remover features categóricas e binárias
 print(X.shape)
 X = drop_categorical_variables(X)
 print(X.shape)
@@ -33,7 +27,7 @@ print(X.shape)
 #_________________________________________________________________________________
 
 #2. limpar dataset
-#quando se faz url_dataset.variables ele supostamente diz que nenhuma coluna tem missing data portanto não sei se isto é necessário
+#informação disponibilizada sobre o dataset garante que não há valores em falta
 
 #__________________________________________________________________________________
 
@@ -47,18 +41,18 @@ covm, high_corr_pairs = generate_cov_matrix(X, show_img=False)
 
 #____________________________________________________________________________________
 
-#5. using the information from the covariance matrix, let's remove the following features:
+#5. com a informação da covariance matrix, removemos as seguintes features
 X = X.drop(columns=["DomainTitleMatchScore", "NoOfLettersInURL", "NoOfDegitsInURL"])
 print(X.shape)
 
 
 #____________________________________________________________________________________
-#6. kriskow walix para feature selection
+#6. kruskal wallis para seleção de features
 Hs = kruskal_wallis(X, Y)
 
 #____________________________________________________________________________________
 
-#7. now let's remove the 30% worse features according to kruskal_wallis
+#7. remover as 30% piores features com base no teste de kruskal wallis
 X = remove_worst_features(X, Hs, percentage=0.3)
 print(X.shape)
 
@@ -75,8 +69,8 @@ print(X_lda.shape)
 
 
 #____________________________________________________________________________________
-#10. min distance classifiers
-# Split the data into full training and testing sets (CAN BE PCA OR LDA DATASET)
+#10. min distance classifiers com distância euclidiana e de mahalanobis
+# Podemos usar o dataset com pca ou lda
 X_train_full, X_test, y_train_full, y_test = train_test_split(X_lda, Y, test_size=0.3, random_state=42)
 
 n_folds = 5
@@ -89,7 +83,7 @@ indices = np.arange(len(X_train_full))
 
 print("\n*** Cross-validation for Euclidean Distance Classifier ***")
 for i in range(n_folds):
-    # Create validation set and training set for this fold
+    # Criar folds
     start = i * fold_size
     end = (i + 1) * fold_size
     if i == n_folds - 1:
@@ -102,14 +96,14 @@ for i in range(n_folds):
     X_train_fold, X_val_fold = X_train_full.iloc[train_indices], X_train_full.iloc[val_indices]
     y_train_fold, y_val_fold = y_train_full.iloc[train_indices], y_train_full.iloc[val_indices]
 
-    # Train and evaluate Euclidean classifier
+    # Treinar e avaliar classificador euclidiano
     y_pred_euclidean = min_euclidean_distance_classifier(X_train_fold, y_train_fold, X_val_fold)
     accuracy_euclidean = accuracy_score(y_val_fold, y_pred_euclidean)
     specificity_euclidean = calculate_specificity(y_val_fold, y_pred_euclidean)
     euclidean_accuracy_scores.append(accuracy_euclidean)
     euclidean_specificity_scores.append(specificity_euclidean)
    
-    # Train and evaluate Mahalanobis classifier
+    # Treinar e avaliar classificador mahalanobis
     y_pred_mahalanobis = min_mahalanobis_distance_classifier(X_train_fold, y_train_fold, X_val_fold)
     accuracy_mahalanobis = accuracy_score(y_val_fold, y_pred_mahalanobis)
     specificity_mahalanobis = calculate_specificity(y_val_fold, y_pred_mahalanobis)
@@ -131,7 +125,6 @@ print(f"Standard Deviation of Cross-validation Specificity: {np.std(mahalanobis_
 
 #____________________________________________________________________________________
 #11. Fisher LDA
-# Split the data into full training and testing sets
 X_train_full, X_test, y_train_full, y_test = train_test_split(X, Y, test_size=0.3, random_state=42)
 
 n_folds = 5
@@ -142,7 +135,7 @@ indices = np.arange(len(X_train_full))
 
 print("\n*** Cross-validation for FISHER LDA Classifier ***")
 for i in range(n_folds):
-    # Create validation set and training set for this fold
+    # Criar fold
     start = i * fold_size
     end = (i + 1) * fold_size
     if i == n_folds - 1:
@@ -155,7 +148,7 @@ for i in range(n_folds):
     X_train_fold, X_val_fold = X_train_full.iloc[train_indices], X_train_full.iloc[val_indices]
     y_train_fold, y_val_fold = y_train_full.iloc[train_indices], y_train_full.iloc[val_indices]
 
-    # Train and evaluate Fisher classifier
+    # Treinar e avaliar classificador Fisher
     y_pred_fisher = fisher_lda_classifier(X_train_fold, y_train_fold, X_val_fold)
     accuracy_fisher = accuracy_score(y_val_fold, y_pred_fisher)
     specificity_fisher = calculate_specificity(y_val_fold, y_pred_fisher)
