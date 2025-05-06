@@ -3,99 +3,9 @@ from scipy.spatial.distance import euclidean
 from scipy.spatial.distance import mahalanobis
 from scipy.linalg import inv
 import pandas as pd
-
-
-def min_euclidean_distance_classifier(X_train, y_train, X_test):
-    """
-    Creates and applies a minimum Euclidean distance classifier.
-
-    Args:
-        X_train (pd.DataFrame or np.array): Training feature matrix.
-        y_train (pd.Series or np.array): Training target variable (class labels).
-        X_test (pd.DataFrame or np.array): Test feature matrix.
-
-    Returns:
-        np.array: Predicted class labels for the test data.
-    """
-    # Ensure inputs are numpy arrays for easier calculations
-    X_train = np.asarray(X_train)
-    y_train = np.asarray(y_train)
-    X_test = np.asarray(X_test)
-
-    # 1. Calculate the mean of features for each class in the training data
-    class_labels = np.unique(y_train)
-    class_means = {}
-    for label in class_labels:
-        class_means[label] = np.mean(X_train[y_train == label], axis=0)
-
-    # 2. Predict the class for each test data point based on Euclidean distance
-    predictions = []
-    for test_point in X_test:
-        distances = {}
-        for label, mean in class_means.items():
-            distances[label] = euclidean(test_point, mean)
-
-        # The predicted class is the one with the minimum Euclidean distance
-        predicted_label = min(distances, key=distances.get)
-        predictions.append(predicted_label)
-
-    return np.array(predictions)
-
-
-def min_mahalanobis_distance_classifier(X_train, y_train, X_test):
-    """
-    Creates and applies a minimum Mahalanobis distance classifier.
-
-    Args:
-        X_train (pd.DataFrame or np.array): Training feature matrix.
-        y_train (pd.Series or np.array): Training target variable (class labels).
-        X_test (pd.DataFrame or np.array): Test feature matrix.
-
-    Returns:
-        np.array: Predicted class labels for the test data.
-    """
-    # Ensure inputs are numpy arrays for easier calculations
-    X_train = np.asarray(X_train)
-    y_train = np.asarray(y_train)
-    X_test = np.asarray(X_test)
-
-    # 1. Calculate the mean vector and covariance matrix for each class in the training data
-    class_labels = np.unique(y_train)
-    class_means = {}
-    class_covariances = {}
-    class_inv_covariances = {}
-
-    for label in class_labels:
-        X_class = X_train[y_train == label]
-        
-        class_means[label] = np.mean(X_class, axis=0)
-        # Calculate the covariance matrix for each class
-        cov = np.cov(X_class, rowvar=False)
-        class_covariances[label] = np.atleast_2d(cov)  # Ensures 2D structure
-
-        # Calculate the inverse of the covariance matrix; handle potential singular matrices
-        try:
-            class_inv_covariances[label] = inv(class_covariances[label])
-        except Exception as e:
-            print(f"Warning: Covariance matrix for class {label} is singular. Using pseudo-inverse.")
-            class_inv_covariances[label] = np.linalg.pinv(class_covariances[label])
-
-    # 2. Predict the class for each test data point based on Mahalanobis distance
-    predictions = []
-    for test_point in X_test:
-        distances = {}
-        for label in class_labels:
-            # Calculate the Mahalanobis distance to the mean of the current class
-            mean_vector = class_means[label]
-            inv_covariance = class_inv_covariances[label]
-            distances[label] = mahalanobis(test_point, mean_vector, inv_covariance)
-
-        # The predicted class is the one with the minimum Mahalanobis distance
-        predicted_label = min(distances, key=distances.get)
-        predictions.append(predicted_label)
-
-    return np.array(predictions)
-
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, roc_curve, auc
+import matplotlib.pyplot as plt
 
 def calculate_sensitivity(y_true, y_pred, positive_label=1):
     """
@@ -134,42 +44,96 @@ def calculate_specificity(y_true, y_pred, negative_label=0):
     return true_negatives / (true_negatives + false_positives)
 
 
-def fisher_lda_classifier(X_train, y_train, X_test):
+
+def cross_validate_classifier(X, y, classifier, n_folds=5, view=True):
     """
-    Fisher's LDA Minimum Distance Classifier.
+    Executa validação cruzada com K folds para um classificador dado.
 
-    Args:
-        X_train (np.array): Training feature matrix.
-        y_train (np.array): Training labels.
-        X_test (np.array): Test feature matrix.
+    Parâmetros:
+        X (pd.DataFrame): Conjunto de features.
+        y (pd.Series): Labels correspondentes (0 ou 1).
+        classifier_fn (class): Classifier class
+        n_folds (int): Número de folds para cross-validation. Default = 5.
+        label (str): Nome do classificador (para display).
 
-    Returns:
-        np.array: Predicted class labels.
+    Retorna:
+        tuple: (accuracy média, especificidade média)
     """
-    # Ensure numpy arrays
-    X_train = np.asarray(X_train)
-    y_train = np.asarray(y_train)
-    X_test = np.asarray(X_test)
+  
+   
+    # Criar vetor de índices embaralhados
+    indices = np.arange(len(X))
+    fold_size = len(X) // n_folds
+    np.random.seed(42)  # Garantir reprodutibilidade
+    np.random.shuffle(indices)
 
-    # Compute class means
-    class_labels = np.unique(y_train)
-    m0 = np.mean(X_train[y_train == class_labels[0]], axis=0)
-    m1 = np.mean(X_train[y_train == class_labels[1]], axis=0)
+    # Inicializar listas para guardar resultados de cada fold
+    accuracy_scores = []
+    specificity_scores = []
+    auc_scores = []
+    tprs = []
+    mean_fpr = np.linspace(0, 1, 100)
 
-    # Compute within-class scatter matrix Sw
-    S0 = np.cov(X_train[y_train == class_labels[0]], rowvar=False)
-    S1 = np.cov(X_train[y_train == class_labels[1]], rowvar=False)
-    Sw = S0 + S1
+    print(f"\n*** Cross-validation for {classifier.classifier_label} ***")
 
-    # Compute LDA projection vector
-    w = np.linalg.inv(Sw).dot(m1 - m0)
+    for i in range(n_folds):
+        # Definir os índices para o fold de validação atual
+        start = i * fold_size
+        end = (i + 1) * fold_size if i < n_folds - 1 else len(X)  # último fold pode ter tamanho ligeiramente maior
 
-    # Project means and test data
-    m0_proj = np.dot(m0, w)
-    m1_proj = np.dot(m1, w)
-    X_test_proj = X_test @ w
+        val_indices = indices[start:end]  # dados para validação
+        train_indices = np.concatenate([indices[:start], indices[end:]])  # dados para treino
 
-    # Classify based on minimum Euclidean distance in 1D
-    predictions = [class_labels[0] if abs(x - m0_proj) < abs(x - m1_proj) else class_labels[1] for x in X_test_proj]
+        # Separar os dados de treino e validação com base nos índices definidos
+        X_train, X_val = X.iloc[train_indices], X.iloc[val_indices]
+        y_train, y_val = y.iloc[train_indices], y.iloc[val_indices]
 
-    return np.array(predictions)
+        # Executar o classificador no fold atual
+        classifier.train(X_train, y_train)
+        y_pred = classifier.predict(X_val)
+
+        # Calcular métricas de desempenho
+        acc = accuracy_score(y_val, y_pred)
+        spec = calculate_specificity(y_val, y_pred)
+
+        # Armazenar resultados
+        accuracy_scores.append(acc)
+        specificity_scores.append(spec)
+
+        # Calcular a curva ROC
+        y_scores = classifier.objective_function(X_val)
+        fpr, tpr, _ = roc_curve(y_val, y_scores)
+        roc_auc = auc(fpr, tpr)
+        auc_scores.append(roc_auc)
+
+        # Interpolação para média de curvas ROC
+        tpr_interp = np.interp(mean_fpr, fpr, tpr)
+        tpr_interp[0] = 0.0
+        tprs.append(tpr_interp)
+
+
+    # Mostrar resultados agregados (média e desvio padrão)
+    print(f"Mean Accuracy for {classifier.classifier_label}: {np.mean(accuracy_scores):.3f} ± {np.std(accuracy_scores):.3f}")
+    print(f"Mean Specificity {classifier.classifier_label}: {np.mean(specificity_scores):.3f} ± {np.std(specificity_scores):.3f}")
+
+    # Plot curva ROC média (se houver score_fn)
+    if len(auc_scores) > 0 and view:
+        mean_tpr = np.mean(tprs, axis=0)
+        mean_tpr[-1] = 1.0
+        mean_auc = auc(mean_fpr, mean_tpr)
+
+        plt.figure(figsize=(8, 6))
+        plt.plot(mean_fpr, mean_tpr, color='blue',
+                 label=f'{classifier.classifier_label} (AUC = {mean_auc:.2f})', lw=2)
+        plt.plot([0, 1], [0, 1], linestyle='--', color='gray', lw=1)
+        plt.xlabel('False Positive Rate')
+        plt.ylabel('True Positive Rate')
+        plt.title(f'Mean ROC Curve - {classifier.classifier_label}')
+        plt.legend(loc='lower right')
+        plt.grid(True)
+        plt.tight_layout()
+        plt.show()
+
+        return np.mean(accuracy_scores), np.mean(specificity_scores), mean_auc
+        
+    return np.mean(accuracy_scores), np.mean(specificity_scores), None

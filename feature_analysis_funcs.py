@@ -4,7 +4,11 @@ import plotly.express as px
 from sklearn.decomposition import PCA
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
 import pandas as pd
-
+from sklearn.model_selection import train_test_split
+from roc_objective_functions import *
+from sklearn.metrics import accuracy_score, roc_curve, auc
+import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 
 def kruskal_wallis(X, Y):
     """
@@ -41,6 +45,59 @@ def kruskal_wallis(X, Y):
 
     return Hs
 
+
+def rank_features_by_auc(X, y, plot=False):
+    """
+    Ranks features by their individual ROC-AUC scores.
+
+    Args:
+        X (pd.DataFrame): Dataset with only numeric features (after filtering).
+        y (pd.Series or np.array): Binary class labels (0 or 1).
+        plot (bool): Whether to plot individual ROC curves with AUC annotations.
+
+    Returns:
+        list of tuples: [(feature_name, auc), ...] sorted by AUC descending
+    """
+    feature_names = X.columns
+    auc_scores = []
+
+    for feature in feature_names:
+        scores = X[feature].to_numpy()
+
+        # ROC and AUC for the current feature
+        fpr, tpr, _ = roc_curve(y, scores, pos_label=1)
+        roc_auc = auc(fpr, tpr)
+        auc_scores.append((feature, roc_auc))
+
+        # Optional plot
+        if plot:
+            fig = go.Figure()
+            fig.add_scatter(x=fpr, y=tpr, mode='lines+markers', name=feature)
+            fig.update_layout(
+                autosize=False,
+                width=600,
+                height=500,
+                title=f"ROC Curve - {feature}",
+                xaxis_title="False Positive Rate",
+                yaxis_title="True Positive Rate",
+                showlegend=True
+            )
+            fig.add_annotation(
+                x=0.6, y=0.2,
+                text=f"AUC: {roc_auc:.3f}",
+                showarrow=False,
+                font=dict(size=12, color="black")
+            )
+            fig.show()
+
+    # Sort features by AUC (highest first)
+    auc_scores_sorted = sorted(auc_scores, key=lambda x: x[1], reverse=True)
+
+    print("\n Ranking of Features by ROC-AUC:")
+    for name, score in auc_scores_sorted:
+        print(f"{name} --> AUC: {score:.3f}")
+
+    return auc_scores_sorted
 
 def generate_cov_matrix(X, show_img=True):
     """
