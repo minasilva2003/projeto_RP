@@ -6,7 +6,7 @@ from sklearn.metrics import accuracy_score
 
 from pre_process_funcs import normalize_features, drop_categorical_variables, drop_binary_variables
 from feature_analysis_funcs import kruskal_wallis, generate_cov_matrix, remove_worst_features, analyse_pca, analyse_lda, rank_features_by_auc
-from min_dist_classifiers import cross_validate_classifier, calculate_specificity, fisher_lda_classifier
+from crossvalidation import cross_validate_classifier, calculate_specificity
 from roc_objective_functions import euclidean_objective_function, mahalanobis_objective_function, fisher_objective_function, knn_objective_function
 
 from euclidean_MDC import Euclidean_MDC
