@@ -13,6 +13,7 @@ from euclidean_MDC import Euclidean_MDC
 from mahalanobis_MDC import Mahalanobis_MDC
 from LDA_fisher_MDC import LDA_Fisher_MDC
 from KNN_classifier import KnnClassifier
+from SVM_classifier import SvmClassifier
 
 #________________________________________________________________________________
 

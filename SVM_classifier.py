@@ -3,6 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 import numpy as np
 import plotly.express as px
+from tqdm import tqdm
 
 class SvmClassifier:
     def __init__(self):
@@ -28,22 +29,26 @@ class SvmClassifier:
         np.random.seed(random_seed)
         err_mat = np.zeros((n_runs, len(C_values)))
 
+        total = n_runs * len(C_values)
+        pbar = tqdm(total=total, desc="SVM Training", unit="model")
+
         for r in range(n_runs):
-            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size)
+            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, stratify=y)
 
             for i, C in enumerate(C_values):
                 svm = SVC(C=C, kernel='rbf', probability=True)
                 svm.fit(X_train, y_train)
                 y_pred = svm.predict(X_test)
-
                 acc = accuracy_score(y_test, y_pred)
-                err_mat[r, i] = (1 - acc) * 100  # store error in %
+                err_mat[r, i] = (1 - acc) * 100
+                pbar.update(1)
+
+        pbar.close()
 
         avg_error = np.mean(err_mat, axis=0)
         std_error = np.std(err_mat, axis=0)
         opt_C = C_values[np.argmin(avg_error)]
 
-        # Plot
         if view:
             fig = px.scatter(x=np.log10(C_values), y=avg_error, error_y=std_error,
                              labels={"x": "log10(C)", "y": "Average Error (%)"},
