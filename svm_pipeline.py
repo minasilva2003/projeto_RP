@@ -66,7 +66,7 @@ X_small, _, y_small, _ = train_test_split(
 )
 
 svm = SvmClassifier()
-results = svm.svm_analysis(X_small, y_small, C_values=np.logspace(-2, 2, 5), n_runs=5, view=True)
+#results = svm.svm_analysis(X_small, y_small, C_values=np.logspace(-2, 2, 5), n_runs=5, view=True)
 
 # -------------------------------------
 # 7. Final train on full dataset using best C

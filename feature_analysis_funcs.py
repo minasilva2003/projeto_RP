@@ -10,6 +10,23 @@ from sklearn.metrics import accuracy_score, roc_curve, auc
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 
+log_file_path = "main.log"
+
+def print_log(message):
+    """
+    Appends a message to a .log file.
+
+    Parameters:
+        log_file_path (str): Path to the log file.
+        message (str): The message to append.
+    """
+
+    print(message)
+
+    with open(log_file_path, 'a') as log_file:
+        log_file.write(message + '\n')
+
+
 def kruskal_wallis(X, Y):
     """
     Performs the Kruskal-Wallis test for feature selection by ranking features based on their 
@@ -38,10 +55,11 @@ def kruskal_wallis(X, Y):
 
     Hs = sorted(Hs.items(), key=lambda x: x[1], reverse=True)  
 
-    print("Ranked features using Kruskal-Wallis test:")
-
+    res = ""
     for f in Hs:
-        print(f[0] + " --> " + str(f[1]))
+        res += f[0] + "  --> " + str(f[1]) + "\n"
+
+    print_log("Ranked features using Kruskal-Wallis test:\n" + res)
 
     return Hs
 
@@ -92,11 +110,13 @@ def rank_features_by_auc(X, y, plot=False):
 
     # Sort features by AUC (highest first)
     auc_scores_sorted = sorted(auc_scores, key=lambda x: x[1], reverse=True)
-
-    print("\n Ranking of Features by ROC-AUC:")
+  
+    res = ""
     for name, score in auc_scores_sorted:
-        print(f"{name} --> AUC: {score:.3f}")
+        res += name + " -- > AUC: " + str(score) + "\n"
 
+    print_log("\n Ranking of Features by ROC-AUC:\n" + res)
+    
     return auc_scores_sorted
 
 def generate_cov_matrix(X, show_img=True):
@@ -131,6 +151,7 @@ def generate_cov_matrix(X, show_img=True):
                         color_continuous_scale=px.colors.sequential.Viridis)  # You can change the color scheme
         
         fig.show()
+        fig.write_image(f"corr_mat.png")
 
     corrMat = pd.DataFrame(corrMat, index=feature_names, columns=feature_names)
 
@@ -144,8 +165,11 @@ def generate_cov_matrix(X, show_img=True):
     # Sort by absolute correlation value (descending order)
     high_corr_pairs.sort(key=lambda x: abs(x[2]), reverse=True)
 
+    res = ""
     for pair in high_corr_pairs:
-        print(f"Features: {pair[0]} & {pair[1]} --> Correlation: {pair[2]:.2f}")
+        res += f"Features: {pair[0]} & {pair[1]} --> Correlation: {pair[2]:.2f}\n"
+    
+    print_log(res)
 
     return corrMat, high_corr_pairs
 
@@ -166,31 +190,32 @@ def remove_worst_features(X, Hs, percentage=0.2):
     num_features_to_remove = int(len(Hs) * percentage)
     worst_features = [Hs[-(i+1)][0] for i in range(num_features_to_remove)]  # Get the worst features
     
-    print(f"Removing {num_features_to_remove} worst features: {worst_features}")
+    #print_log(f"Removing {num_features_to_remove} worst features: {worst_features}")
     
     return X.drop(columns=worst_features)
 
 
 #function to perform PCA and check which components to keep based on kaiser test
-def analyse_pca(X, show_img=True):
+def analyse_pca(X, feature_selection_type, show_img=True):
     pca = PCA()
     pca.fit(X)
 
     #PCA eigenvalues/Explained variance
-    print("PCA eigenvalues/Explained variance")
-    print(pca.explained_variance_)
-    print("Sum of eigenvalues="+str(np.sum(pca.explained_variance_)))
+    #print_log("PCA eigenvalues/Explained variance:\n")
+    #print_log(pca.explained_variance_)
+    #print_log("Sum of eigenvalues="+str(np.sum(pca.explained_variance_)))
     
     #PCA eigenvectors/Principal components
-    print("PCA eigenvectors/Principal components")
+    #print_log("PCA eigenvectors/Principal components")
     W=pca.components_.T
-    print(W)
+    #print_log(W)
 
-    print("The main PC contributes to "+str(pca.explained_variance_[0]**2/(pca.explained_variance_[0]**2+pca.explained_variance_[1]**2)*100)+"% of the variance.")
+    print_log("The main PC contributes to "+str(pca.explained_variance_[0]**2/(pca.explained_variance_[0]**2+pca.explained_variance_[1]**2)*100)+"% of the variance.")
     
     #Kaiser test (quantos componentes têm eigenvalue acima de 1)
     optimal_components =sum(pca.explained_variance_>1)
-    print("Optimal number of components according to Kaiser: "+str(optimal_components))
+
+    print_log("Optimal number of components according to Kaiser: "+str(optimal_components))
 
     #visualizar kaiser test
     if show_img:
@@ -199,9 +224,10 @@ def analyse_pca(X, show_img=True):
         fig.add_hline(y=1,line_width=3, line_dash="dash", line_color="red")
         fig.update_traces(marker_size=10)
         fig.show()
+        fig.write_image(f"kaiser_test_{feature_selection_type}.png")
 
-    print("Variance (%) retained accourding to Kaiser: "+str(pca.explained_variance_[0]**2/(np.sum(pca.explained_variance_**2))*100))
-    print("Variance (%) retained accourding to Scree: "+str(np.sum(pca.explained_variance_[0:6]**2)/(np.sum(pca.explained_variance_**2))*100))
+    print_log("Variance (%) retained accourding to Kaiser: "+str(pca.explained_variance_[0]**2/(np.sum(pca.explained_variance_**2))*100))
+    print_log("Variance (%) retained accourding to Scree: "+str(np.sum(pca.explained_variance_[0:6]**2)/(np.sum(pca.explained_variance_**2))*100))
 
     # Apply PCA with the optimal number of components
     pca_optimal = PCA(n_components=optimal_components)

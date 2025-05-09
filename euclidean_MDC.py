@@ -7,10 +7,11 @@ class Euclidean_MDC:
     An euclidean minimum distance classifier
     """
 
-    def __init__(self):
+    def __init__(self, data_info):
         self.class_means = {}
-        self.classifier_label = "Euclidean MDC"
-
+        self.classifier_label = "Euclidean_MDC"
+        self.data_info = data_info
+        
     def train(self, X_train, Y_train):
         """
         Train the classifier

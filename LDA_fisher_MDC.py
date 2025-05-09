@@ -7,13 +7,14 @@ class LDA_Fisher_MDC:
     An LDA Fisher classifier
     """
 
-    def __init__(self):
+    def __init__(self, data_info):
         self.m0 = None
         self.m1 = None
         self.projection_vector = None
         self.m0_proj = None
         self.m1_proj = None
-        self.classifier_label = "LDA Fisher MDC"
+        self.classifier_label = "LDA_Fisher_MDC"
+        self.data_info = data_info
 
     def train(self, X_train, Y_train):
         

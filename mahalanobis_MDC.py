@@ -7,12 +7,13 @@ class Mahalanobis_MDC:
     A mahalanobis distance minimum distance classifier
     """
 
-    def __init__(self):
+    def __init__(self, data_info):
         self.class_means = {}
         self.class_labels = None
         self.class_covariances = {}
         self.class_inv_covariances = {}
-        self.classifier_label = "Mahalanobis MDC"
+        self.classifier_label = "Mahalanobis_MDC"
+        self.data_info = data_info
 
     def train(self, X_train, Y_train):
         """
@@ -60,7 +61,9 @@ class Mahalanobis_MDC:
                 # Calculate the Mahalanobis distance to the mean of the current class
                 mean_vector = self.class_means[label]
                 inv_covariance = self.class_inv_covariances[label]
+
                 distances[label] = mahalanobis(np.asarray(test_point), np.asarray(mean_vector), inv_covariance)
+
 
             # The predicted class is the one with the minimum Mahalanobis distance
             predicted_label = min(distances, key=distances.get)
@@ -74,7 +77,14 @@ class Mahalanobis_MDC:
         Returns continuous values that reflect confidence level of each point 
         in dataset belonging to positive class
         """
+        scores = []
         
-           # Score = -mahalanobis distance to phishing mean
-        scores = [-mahalanobis(np.asarray(x), np.asarray(self.class_means[1]), self.class_inv_covariances[1]) for x in np.asarray(X_test)]
+        for x in np.asarray(X_test):
+            try:
+                distance = mahalanobis(x, self.class_means[1], self.class_inv_covariances[1])
+                scores.append(-distance)  # Negative distance (confidence level)
+            except Exception as e:
+                print(f"Error calculating Mahalanobis distance for point {x}: {e}")
+                scores.append(np.nan)  # In case of error, append NaN
+            
         return np.array(scores)
