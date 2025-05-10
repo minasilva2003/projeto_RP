@@ -173,16 +173,24 @@ for feature_selection_type, fs_X in feature_selection_Xs.items():
         else:
             classifiers = [Euclidean_MDC(data_info_string), Mahalanobis_MDC(data_info_string), BayesianGaussianClassifier(data_info_string), knn_classifier, svm_classifier]
 
-        #14. Para cada classifier correr 10 vezes cross-validation e guardar resultados
-        for classifier in classifiers: 
+        try:
+            #14. Para cada classifier correr 10 vezes cross-validation e guardar resultados
+            for classifier in classifiers: 
 
-            for run in range (10):
+                for run in range (10):
 
-                metrics = cross_validate_classifier(processed_X, Y, classifier, run+1, 5, view=False)
+                    metrics = cross_validate_classifier(processed_X, Y, classifier, run+1, 5, view=False)
 
-                results = [feature_selection_type, data_processing_type, classifier.classifier_label, run+1] + metrics
+                    results = [feature_selection_type, data_processing_type, classifier.classifier_label, run+1] + metrics
 
-                rows.append(results)
+                    rows.append(results)
+        
+        except Exception as e:
+            with open('results.csv', mode='w', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerows(rows)  # Write all rows
+
+            
 
 
 # Writing to a CSV file

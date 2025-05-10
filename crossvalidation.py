@@ -7,6 +7,7 @@ from sklearn.metrics import accuracy_score, recall_score, f1_score, roc_curve, a
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 import os
+import time
 
 log_file_path = "main.log"
 
@@ -80,7 +81,7 @@ def cross_validate_classifier(X, y, classifier, run, n_folds=5, view=True):
     # Create shuffled indices for cross-validation
     indices = np.arange(len(X))
     fold_size = len(X) // n_folds
-    #np.random.seed(42)  # Ensure reproducibility
+    np.random.seed(time.time())  # Ensure reproducibility
     np.random.shuffle(indices)
 
     # Initialize lists to store results for each fold
@@ -152,13 +153,15 @@ def cross_validate_classifier(X, y, classifier, run, n_folds=5, view=True):
     print_log(f"Mean Specificity for {classifier.classifier_label}: {np.mean(specificity_scores):.3f} ± {np.std(specificity_scores):.3f}")
     print_log(f"Mean F1-score for {classifier.classifier_label}: {np.mean(f1_scores):.3f} ± {np.std(f1_scores):.3f}")
     print_log(f"Mean Sensitivity (Recall) for {classifier.classifier_label}: {np.mean(sensitivity_scores):.3f} ± {np.std(sensitivity_scores):.3f}")
-    print_log("\n\n#########################################################################\n\n")
     
     # Plot the mean ROC curve (if AUC scores are available and objective function exists)
     if len(auc_scores) > 0 and classifier.objective_function is not None:
         mean_tpr = np.mean(tprs, axis=0)
         mean_tpr[-1] = 1.0
         mean_auc = auc(mean_fpr, mean_tpr)
+
+        print_log(f"Mean AUC for {classifier.classifier_label}: {mean_auc}")
+        print_log("\n\n#########################################################################\n\n")
 
         plt.figure(figsize=(8, 6))
         plt.plot(mean_fpr, mean_tpr, color='blue',
@@ -181,5 +184,7 @@ def cross_validate_classifier(X, y, classifier, run, n_folds=5, view=True):
         return [np.mean(accuracy_scores), np.mean(specificity_scores), np.mean(f1_scores), 
                 np.mean(sensitivity_scores), mean_auc]
         
+    print_log("\n\n#########################################################################\n\n")
+    
     return [np.mean(accuracy_scores), np.mean(specificity_scores), np.mean(f1_scores), 
             np.mean(sensitivity_scores), None]
