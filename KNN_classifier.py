@@ -36,18 +36,18 @@ class KnnClassifier:
 
     def knn_analysis(self, X, y, k_values=np.arange(1, 16, 2), n_runs=5, test_size=0.3, view=False, random_seed=42):
         """
-        Avalia o desempenho do k-NN para diferentes valores de k e várias partições dos dados.
+        Evaluates the performance of k-NN for different values of k and multiple data partitions.
         
         Args:
-            X (pd.DataFrame): Dados de entrada (features).
-            y (pd.Series): Rótulos binários.
-            k_values (array-like): Valores de k a testar.
-            n_runs (int): Número de partições aleatórias a testar.
-            test_size (float): Proporção do conjunto de teste.
-            random_seed (int): Seed para reprodutibilidade.
+            X (pd.DataFrame): Input data (features).
+            y (pd.Series): Binary labels.
+            k_values (array-like): Values of k to test.
+            n_runs (int): Number of random partitions to test.
+            test_size (float): Proportion of the test set.
+            random_seed (int): Seed for reproducibility.
             
-        Retorna:
-            dict: Resultados com erros médios, desvios e melhor k.
+        Returns:
+            dict: Results with average errors, standard deviations, and the best k.
         """
         np.random.seed(random_seed)
         err_mat = np.zeros((n_runs, len(k_values)))
