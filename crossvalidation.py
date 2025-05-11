@@ -81,7 +81,7 @@ def cross_validate_classifier(X, y, classifier, run, n_folds=5, view=True):
     # Create shuffled indices for cross-validation
     indices = np.arange(len(X))
     fold_size = len(X) // n_folds
-    np.random.seed(time.time())  # Ensure reproducibility
+    
     np.random.shuffle(indices)
 
     # Initialize lists to store results for each fold
@@ -185,6 +185,6 @@ def cross_validate_classifier(X, y, classifier, run, n_folds=5, view=True):
                 np.mean(sensitivity_scores), mean_auc]
         
     print_log("\n\n#########################################################################\n\n")
-    
+
     return [np.mean(accuracy_scores), np.mean(specificity_scores), np.mean(f1_scores), 
             np.mean(sensitivity_scores), None]

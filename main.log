@@ -1,0 +1,2189 @@
+
+
+#########################################################################
+
+
+Shape of original X: (235795, 55)
+
+
+#########################################################################
+
+
+Shape of X after dropping categorical variables: (235795, 50)
+
+
+#########################################################################
+
+
+Shape of X after dropping binary variables: (235795, 31)
+
+
+#########################################################################
+
+
+Features: DomainTitleMatchScore & URLTitleMatchScore --> Correlation: 0.96
+Features: URLLength & NoOfLettersInURL --> Correlation: 0.96
+Features: URLLength & NoOfDegitsInURL --> Correlation: 0.84
+Features: NoOfDegitsInURL & NoOfEqualsInURL --> Correlation: 0.81
+
+Shape of X after dropping highly correlated variables: (235795, 28)
+
+
+#########################################################################
+
+
+Performing Kruskal Wallis Ranking...
+Ranked features using Kruskal-Wallis test:
+URLSimilarityIndex  --> KruskalResult(statistic=210584.39036357813, pvalue=0.0)
+NoOfExternalRef  --> KruskalResult(statistic=167404.03123554974, pvalue=0.0)
+NoOfImage  --> KruskalResult(statistic=167374.10572427587, pvalue=0.0)
+LineOfCode  --> KruskalResult(statistic=166758.99813854924, pvalue=0.0)
+NoOfSelfRef  --> KruskalResult(statistic=162123.57914756692, pvalue=0.0)
+NoOfJS  --> KruskalResult(statistic=159715.89402412856, pvalue=0.0)
+NoOfCSS  --> KruskalResult(statistic=152179.26990352495, pvalue=0.0)
+NoOfOtherSpecialCharsInURL  --> KruskalResult(statistic=88465.33871447768, pvalue=0.0)
+LargestLineLength  --> KruskalResult(statistic=69335.65627723419, pvalue=0.0)
+DegitRatioInURL  --> KruskalResult(statistic=67811.9838472924, pvalue=0.0)
+SpacialCharRatioInURL  --> KruskalResult(statistic=65590.23448570608, pvalue=0.0)
+URLTitleMatchScore  --> KruskalResult(statistic=65028.72661266042, pvalue=0.0)
+NoOfiFrame  --> KruskalResult(statistic=63975.058491280324, pvalue=0.0)
+NoOfEmptyRef  --> KruskalResult(statistic=62589.42453427845, pvalue=0.0)
+CharContinuationRate  --> KruskalResult(statistic=52089.10637120806, pvalue=0.0)
+URLCharProb  --> KruskalResult(statistic=49701.38268546595, pvalue=0.0)
+LetterRatioInURL  --> KruskalResult(statistic=32077.034876127516, pvalue=0.0)
+DomainLength  --> KruskalResult(statistic=10750.930197775862, pvalue=0.0)
+TLDLegitimateProb  --> KruskalResult(statistic=9216.914981500566, pvalue=0.0)
+NoOfPopup  --> KruskalResult(statistic=8777.779646698476, pvalue=0.0)
+NoOfQMarkInURL  --> KruskalResult(statistic=8406.971157899832, pvalue=0.0)
+NoOfEqualsInURL  --> KruskalResult(statistic=7383.037003948996, pvalue=0.0)
+NoOfAmpersandInURL  --> KruskalResult(statistic=1189.3857541347083, pvalue=1.236173360324312e-260)
+TLDLength  --> KruskalResult(statistic=698.2785726647204, pvalue=7.080117984548315e-154)
+NoOfObfuscatedChar  --> KruskalResult(statistic=649.2316744847103, pvalue=3.282516964322253e-143)
+ObfuscationRatio  --> KruskalResult(statistic=649.2315706386679, pvalue=3.2826876686790215e-143)
+NoOfSubDomain  --> KruskalResult(statistic=263.1706421454502, pvalue=3.494681905399867e-59)
+
+
+
+#########################################################################
+
+
+Performing AUC ranking...
+
+ Ranking of Features by ROC-AUC:
+URLSimilarityIndex -- > AUC: 0.9961067908266877
+LineOfCode -- > AUC: 0.9902547246283098
+NoOfExternalRef -- > AUC: 0.9880213473957713
+NoOfImage -- > AUC: 0.9796345449113589
+NoOfSelfRef -- > AUC: 0.9724564542125486
+NoOfJS -- > AUC: 0.9708228801783104
+NoOfCSS -- > AUC: 0.9575963584614823
+LargestLineLength -- > AUC: 0.8163423052230577
+URLTitleMatchScore -- > AUC: 0.7707085809217834
+URLCharProb -- > AUC: 0.7678514166084156
+NoOfiFrame -- > AUC: 0.7546068869061305
+NoOfEmptyRef -- > AUC: 0.7454109871943725
+CharContinuationRate -- > AUC: 0.7438507303975209
+TLDLegitimateProb -- > AUC: 0.6088554390523825
+NoOfPopup -- > AUC: 0.5451757711282074
+NoOfSubDomain -- > AUC: 0.5146242955130744
+NoOfObfuscatedChar -- > AUC: 0.4975977017187577
+ObfuscationRatio -- > AUC: 0.4975977017187577
+NoOfAmpersandInURL -- > AUC: 0.49560651840110953
+TLDLength -- > AUC: 0.47382428615398353
+NoOfEqualsInURL -- > AUC: 0.4732478082123929
+NoOfQMarkInURL -- > AUC: 0.4696369310020308
+DomainLength -- > AUC: 0.37558312078408174
+LetterRatioInURL -- > AUC: 0.28489070438600683
+DegitRatioInURL -- > AUC: 0.273902149235516
+URLLength -- > AUC: 0.2676346254259869
+SpacialCharRatioInURL -- > AUC: 0.19242620914229278
+NoOfOtherSpecialCharsInURL -- > AUC: 0.17621701696865988
+
+
+
+#########################################################################
+
+
+Shape for dataset after KW ranking selection: (235795, 23)
+Shape for dataset after AUC ranking selection: (235795, 23)
+
+
+#########################################################################
+
+
+
+
+#########################################################################
+
+
+Performing PCA for KW...
+The main PC contributes to 99.99997447187319% of the variance.
+Optimal number of components according to Kaiser: 15
+Variance (%) retained accourding to Kaiser: 99.9999744715281
+Variance (%) retained accourding to Scree: 99.99999999999798
+Shape of dataset after PCA for KW is: (235795, 15)
+
+
+#########################################################################
+
+
+Performing LDA for KW...
+Shape of dataset after LDA is KW: (235795, 1)
+
+
+#########################################################################
+
+
+
+
+#########################################################################
+
+
+Performing PCA for AUC...
+The main PC contributes to 99.99997447190147% of the variance.
+Optimal number of components according to Kaiser: 14
+Variance (%) retained accourding to Kaiser: 99.99997447155715
+Variance (%) retained accourding to Scree: 99.99999999999864
+Shape of dataset after PCA for AUC is: (235795, 14)
+
+
+#########################################################################
+
+
+Performing LDA for AUC...
+Shape of dataset after LDA is AUC: (235795, 1)
+
+
+#########################################################################
+
+
+
+
+#########################################################################
+
+
+Shape of original X: (235795, 55)
+
+
+#########################################################################
+
+
+Shape of X after dropping categorical variables: (235795, 50)
+
+
+#########################################################################
+
+
+Shape of X after dropping binary variables: (235795, 31)
+
+
+#########################################################################
+
+
+Features: DomainTitleMatchScore & URLTitleMatchScore --> Correlation: 0.96
+Features: URLLength & NoOfLettersInURL --> Correlation: 0.96
+Features: URLLength & NoOfDegitsInURL --> Correlation: 0.84
+Features: NoOfDegitsInURL & NoOfEqualsInURL --> Correlation: 0.81
+
+Shape of X after dropping highly correlated variables: (235795, 28)
+
+
+#########################################################################
+
+
+Performing Kruskal Wallis Ranking...
+Ranked features using Kruskal-Wallis test:
+URLSimilarityIndex  --> KruskalResult(statistic=210584.39036357813, pvalue=0.0)
+NoOfExternalRef  --> KruskalResult(statistic=167404.03123554974, pvalue=0.0)
+NoOfImage  --> KruskalResult(statistic=167374.10572427587, pvalue=0.0)
+LineOfCode  --> KruskalResult(statistic=166758.99813854924, pvalue=0.0)
+NoOfSelfRef  --> KruskalResult(statistic=162123.57914756692, pvalue=0.0)
+NoOfJS  --> KruskalResult(statistic=159715.89402412856, pvalue=0.0)
+NoOfCSS  --> KruskalResult(statistic=152179.26990352495, pvalue=0.0)
+NoOfOtherSpecialCharsInURL  --> KruskalResult(statistic=88465.33871447768, pvalue=0.0)
+LargestLineLength  --> KruskalResult(statistic=69335.65627723419, pvalue=0.0)
+DegitRatioInURL  --> KruskalResult(statistic=67811.9838472924, pvalue=0.0)
+SpacialCharRatioInURL  --> KruskalResult(statistic=65590.23448570608, pvalue=0.0)
+URLTitleMatchScore  --> KruskalResult(statistic=65028.72661266042, pvalue=0.0)
+NoOfiFrame  --> KruskalResult(statistic=63975.058491280324, pvalue=0.0)
+NoOfEmptyRef  --> KruskalResult(statistic=62589.42453427845, pvalue=0.0)
+CharContinuationRate  --> KruskalResult(statistic=52089.10637120806, pvalue=0.0)
+URLCharProb  --> KruskalResult(statistic=49701.38268546595, pvalue=0.0)
+LetterRatioInURL  --> KruskalResult(statistic=32077.034876127516, pvalue=0.0)
+DomainLength  --> KruskalResult(statistic=10750.930197775862, pvalue=0.0)
+TLDLegitimateProb  --> KruskalResult(statistic=9216.914981500566, pvalue=0.0)
+NoOfPopup  --> KruskalResult(statistic=8777.779646698476, pvalue=0.0)
+NoOfQMarkInURL  --> KruskalResult(statistic=8406.971157899832, pvalue=0.0)
+NoOfEqualsInURL  --> KruskalResult(statistic=7383.037003948996, pvalue=0.0)
+NoOfAmpersandInURL  --> KruskalResult(statistic=1189.3857541347083, pvalue=1.236173360324312e-260)
+TLDLength  --> KruskalResult(statistic=698.2785726647204, pvalue=7.080117984548315e-154)
+NoOfObfuscatedChar  --> KruskalResult(statistic=649.2316744847103, pvalue=3.282516964322253e-143)
+ObfuscationRatio  --> KruskalResult(statistic=649.2315706386679, pvalue=3.2826876686790215e-143)
+NoOfSubDomain  --> KruskalResult(statistic=263.1706421454502, pvalue=3.494681905399867e-59)
+
+
+
+#########################################################################
+
+
+Performing AUC ranking...
+
+ Ranking of Features by ROC-AUC:
+URLSimilarityIndex -- > AUC: 0.9961067908266877
+LineOfCode -- > AUC: 0.9902547246283098
+NoOfExternalRef -- > AUC: 0.9880213473957713
+NoOfImage -- > AUC: 0.9796345449113589
+NoOfSelfRef -- > AUC: 0.9724564542125486
+NoOfJS -- > AUC: 0.9708228801783104
+NoOfCSS -- > AUC: 0.9575963584614823
+LargestLineLength -- > AUC: 0.8163423052230577
+URLTitleMatchScore -- > AUC: 0.7707085809217834
+URLCharProb -- > AUC: 0.7678514166084156
+NoOfiFrame -- > AUC: 0.7546068869061305
+NoOfEmptyRef -- > AUC: 0.7454109871943725
+CharContinuationRate -- > AUC: 0.7438507303975209
+TLDLegitimateProb -- > AUC: 0.6088554390523825
+NoOfPopup -- > AUC: 0.5451757711282074
+NoOfSubDomain -- > AUC: 0.5146242955130744
+NoOfObfuscatedChar -- > AUC: 0.4975977017187577
+ObfuscationRatio -- > AUC: 0.4975977017187577
+NoOfAmpersandInURL -- > AUC: 0.49560651840110953
+TLDLength -- > AUC: 0.47382428615398353
+NoOfEqualsInURL -- > AUC: 0.4732478082123929
+NoOfQMarkInURL -- > AUC: 0.4696369310020308
+DomainLength -- > AUC: 0.37558312078408174
+LetterRatioInURL -- > AUC: 0.28489070438600683
+DegitRatioInURL -- > AUC: 0.273902149235516
+URLLength -- > AUC: 0.2676346254259869
+SpacialCharRatioInURL -- > AUC: 0.19242620914229278
+NoOfOtherSpecialCharsInURL -- > AUC: 0.17621701696865988
+
+
+
+#########################################################################
+
+
+Shape for dataset after KW ranking selection: (235795, 23)
+Shape for dataset after AUC ranking selection: (235795, 23)
+
+
+#########################################################################
+
+
+
+
+#########################################################################
+
+
+Performing PCA for KW...
+The main PC contributes to 83.56117779148026% of the variance.
+Optimal number of components according to Kaiser: 7
+Variance (%) retained accourding to Kaiser: 56.85505660010081
+Variance (%) retained accourding to Scree: 85.70445113910287
+Shape of dataset after PCA for KW is: (235795, 7)
+
+
+#########################################################################
+
+
+Performing LDA for KW...
+Shape of dataset after LDA is KW: (235795, 1)
+
+
+#########################################################################
+
+
+
+
+#########################################################################
+
+
+Performing PCA for AUC...
+The main PC contributes to 67.49144381886357% of the variance.
+Optimal number of components according to Kaiser: 8
+Variance (%) retained accourding to Kaiser: 37.06901338433724
+Variance (%) retained accourding to Scree: 79.22684078800117
+Shape of dataset after PCA for AUC is: (235795, 8)
+
+
+#########################################################################
+
+
+Performing LDA for AUC...
+Shape of dataset after LDA is AUC: (235795, 1)
+
+
+#########################################################################
+
+
+
+
+#########################################################################
+
+
+Shape of original X: (235795, 55)
+
+
+#########################################################################
+
+
+Shape of X after dropping categorical variables: (235795, 50)
+
+
+#########################################################################
+
+
+Shape of X after dropping binary variables: (235795, 31)
+
+
+#########################################################################
+
+
+Features: DomainTitleMatchScore & URLTitleMatchScore --> Correlation: 0.96
+Features: URLLength & NoOfLettersInURL --> Correlation: 0.96
+Features: URLLength & NoOfDegitsInURL --> Correlation: 0.84
+Features: NoOfDegitsInURL & NoOfEqualsInURL --> Correlation: 0.81
+
+Shape of X after dropping highly correlated variables: (235795, 28)
+
+
+#########################################################################
+
+
+Performing Kruskal Wallis Ranking...
+Ranked features using Kruskal-Wallis test:
+URLSimilarityIndex  --> KruskalResult(statistic=210584.39036357813, pvalue=0.0)
+NoOfExternalRef  --> KruskalResult(statistic=167404.03123554974, pvalue=0.0)
+NoOfImage  --> KruskalResult(statistic=167374.10572427587, pvalue=0.0)
+LineOfCode  --> KruskalResult(statistic=166758.99813854924, pvalue=0.0)
+NoOfSelfRef  --> KruskalResult(statistic=162123.57914756692, pvalue=0.0)
+NoOfJS  --> KruskalResult(statistic=159715.89402412856, pvalue=0.0)
+NoOfCSS  --> KruskalResult(statistic=152179.26990352495, pvalue=0.0)
+NoOfOtherSpecialCharsInURL  --> KruskalResult(statistic=88465.33871447768, pvalue=0.0)
+LargestLineLength  --> KruskalResult(statistic=69335.65627723419, pvalue=0.0)
+DegitRatioInURL  --> KruskalResult(statistic=67811.9838472924, pvalue=0.0)
+SpacialCharRatioInURL  --> KruskalResult(statistic=65590.23448570608, pvalue=0.0)
+URLTitleMatchScore  --> KruskalResult(statistic=65028.72661266042, pvalue=0.0)
+NoOfiFrame  --> KruskalResult(statistic=63975.058491280324, pvalue=0.0)
+NoOfEmptyRef  --> KruskalResult(statistic=62589.42453427845, pvalue=0.0)
+CharContinuationRate  --> KruskalResult(statistic=52089.10637120806, pvalue=0.0)
+URLCharProb  --> KruskalResult(statistic=49701.38268546595, pvalue=0.0)
+LetterRatioInURL  --> KruskalResult(statistic=32077.034876127516, pvalue=0.0)
+DomainLength  --> KruskalResult(statistic=10750.930197775862, pvalue=0.0)
+TLDLegitimateProb  --> KruskalResult(statistic=9216.914981500566, pvalue=0.0)
+NoOfPopup  --> KruskalResult(statistic=8777.779646698476, pvalue=0.0)
+NoOfQMarkInURL  --> KruskalResult(statistic=8406.971157899832, pvalue=0.0)
+NoOfEqualsInURL  --> KruskalResult(statistic=7383.037003948996, pvalue=0.0)
+NoOfAmpersandInURL  --> KruskalResult(statistic=1189.3857541347083, pvalue=1.236173360324312e-260)
+TLDLength  --> KruskalResult(statistic=698.2785726647204, pvalue=7.080117984548315e-154)
+NoOfObfuscatedChar  --> KruskalResult(statistic=649.2316744847103, pvalue=3.282516964322253e-143)
+ObfuscationRatio  --> KruskalResult(statistic=649.2315706386679, pvalue=3.2826876686790215e-143)
+NoOfSubDomain  --> KruskalResult(statistic=263.1706421454502, pvalue=3.494681905399867e-59)
+
+
+
+#########################################################################
+
+
+Performing AUC ranking...
+
+ Ranking of Features by ROC-AUC:
+URLSimilarityIndex -- > AUC: 0.9961067908266877
+LineOfCode -- > AUC: 0.9902547246283098
+NoOfExternalRef -- > AUC: 0.9880213473957713
+NoOfImage -- > AUC: 0.9796345449113589
+NoOfSelfRef -- > AUC: 0.9724564542125486
+NoOfJS -- > AUC: 0.9708228801783104
+NoOfCSS -- > AUC: 0.9575963584614823
+LargestLineLength -- > AUC: 0.8163423052230577
+URLTitleMatchScore -- > AUC: 0.7707085809217834
+URLCharProb -- > AUC: 0.7678514166084156
+NoOfiFrame -- > AUC: 0.7546068869061305
+NoOfEmptyRef -- > AUC: 0.7454109871943725
+CharContinuationRate -- > AUC: 0.7438507303975209
+TLDLegitimateProb -- > AUC: 0.6088554390523825
+NoOfPopup -- > AUC: 0.5451757711282074
+NoOfSubDomain -- > AUC: 0.5146242955130744
+NoOfObfuscatedChar -- > AUC: 0.4975977017187577
+ObfuscationRatio -- > AUC: 0.4975977017187577
+NoOfAmpersandInURL -- > AUC: 0.49560651840110953
+TLDLength -- > AUC: 0.47382428615398353
+NoOfEqualsInURL -- > AUC: 0.4732478082123929
+NoOfQMarkInURL -- > AUC: 0.4696369310020308
+DomainLength -- > AUC: 0.37558312078408174
+LetterRatioInURL -- > AUC: 0.28489070438600683
+DegitRatioInURL -- > AUC: 0.273902149235516
+URLLength -- > AUC: 0.2676346254259869
+SpacialCharRatioInURL -- > AUC: 0.19242620914229278
+NoOfOtherSpecialCharsInURL -- > AUC: 0.17621701696865988
+
+
+
+#########################################################################
+
+
+Shape for dataset after KW ranking selection: (235795, 23)
+Shape for dataset after AUC ranking selection: (235795, 23)
+
+
+#########################################################################
+
+
+
+
+#########################################################################
+
+
+Performing PCA for KW...
+The main PC contributes to 83.56117779148026% of the variance.
+Optimal number of components according to Kaiser: 7
+Variance (%) retained accourding to Kaiser: 56.85505660010081
+Variance (%) retained accourding to Scree: 85.70445113910287
+Shape of dataset after PCA for KW is: (235795, 7)
+
+
+#########################################################################
+
+
+Performing LDA for KW...
+Shape of dataset after LDA is KW: (235795, 1)
+
+
+#########################################################################
+
+
+TESTING CLASSIFIERS FOR DATASET KW_Natural...
+TESTING KNN...
+Best k = 1
+Minimum Average Error = 0.30%
+TESTING SVM...
+Best C = 10.0
+Minimum Average Error = 0.33%
+Mean Accuracy for Euclidean_MDC: 0.780 ± 0.001
+Mean Specificity for Euclidean_MDC: 0.808 ± 0.004
+Mean F1-score for Euclidean_MDC: 0.798 ± 0.001
+Mean Sensitivity (Recall) for Euclidean_MDC: 0.758 ± 0.003
+Mean AUC for Euclidean_MDC: 0.9264117258186262
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.780 ± 0.001
+Mean Specificity for Euclidean_MDC: 0.808 ± 0.001
+Mean F1-score for Euclidean_MDC: 0.797 ± 0.002
+Mean Sensitivity (Recall) for Euclidean_MDC: 0.758 ± 0.003
+Mean AUC for Euclidean_MDC: 0.9264048398304471
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.780 ± 0.001
+Mean Specificity for Euclidean_MDC: 0.808 ± 0.001
+Mean F1-score for Euclidean_MDC: 0.797 ± 0.002
+Mean Sensitivity (Recall) for Euclidean_MDC: 0.758 ± 0.002
+Mean AUC for Euclidean_MDC: 0.9264554730853292
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.780 ± 0.002
+Mean Specificity for Euclidean_MDC: 0.808 ± 0.002
+Mean F1-score for Euclidean_MDC: 0.797 ± 0.003
+Mean Sensitivity (Recall) for Euclidean_MDC: 0.758 ± 0.004
+Mean AUC for Euclidean_MDC: 0.9263959396959831
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.780 ± 0.001
+Mean Specificity for Euclidean_MDC: 0.808 ± 0.001
+Mean F1-score for Euclidean_MDC: 0.797 ± 0.001
+Mean Sensitivity (Recall) for Euclidean_MDC: 0.758 ± 0.002
+Mean AUC for Euclidean_MDC: 0.9264396598661462
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.973 ± 0.001
+Mean Specificity for Mahalanobis_MDC: 0.940 ± 0.004
+Mean F1-score for Mahalanobis_MDC: 0.977 ± 0.001
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.999 ± 0.000
+Mean AUC for Mahalanobis_MDC: 0.9075508851244156
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.974 ± 0.001
+Mean Specificity for Mahalanobis_MDC: 0.940 ± 0.002
+Mean F1-score for Mahalanobis_MDC: 0.977 ± 0.001
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.999 ± 0.000
+Mean AUC for Mahalanobis_MDC: 0.907513193677571
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.974 ± 0.002
+Mean Specificity for Mahalanobis_MDC: 0.940 ± 0.004
+Mean F1-score for Mahalanobis_MDC: 0.977 ± 0.001
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.999 ± 0.000
+Mean AUC for Mahalanobis_MDC: 0.907642104963145
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.973 ± 0.001
+Mean Specificity for Mahalanobis_MDC: 0.940 ± 0.003
+Mean F1-score for Mahalanobis_MDC: 0.977 ± 0.001
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.999 ± 0.000
+Mean AUC for Mahalanobis_MDC: 0.907568102821119
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.973 ± 0.001
+Mean Specificity for Mahalanobis_MDC: 0.940 ± 0.004
+Mean F1-score for Mahalanobis_MDC: 0.977 ± 0.001
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.999 ± 0.000
+Mean AUC for Mahalanobis_MDC: 0.9075791591470496
+
+
+#########################################################################
+
+
+Mean Accuracy for LDA_Fisher_MDC: 0.974 ± 0.002
+Mean Specificity for LDA_Fisher_MDC: 0.940 ± 0.004
+Mean F1-score for LDA_Fisher_MDC: 0.978 ± 0.002
+Mean Sensitivity (Recall) for LDA_Fisher_MDC: 1.000 ± 0.000
+Mean AUC for LDA_Fisher_MDC: 0.994798886037456
+
+
+#########################################################################
+
+
+Mean Accuracy for LDA_Fisher_MDC: 0.974 ± 0.002
+Mean Specificity for LDA_Fisher_MDC: 0.940 ± 0.005
+Mean F1-score for LDA_Fisher_MDC: 0.978 ± 0.002
+Mean Sensitivity (Recall) for LDA_Fisher_MDC: 1.000 ± 0.000
+Mean AUC for LDA_Fisher_MDC: 0.9947965741172904
+
+
+#########################################################################
+
+
+Mean Accuracy for LDA_Fisher_MDC: 0.974 ± 0.001
+Mean Specificity for LDA_Fisher_MDC: 0.940 ± 0.004
+Mean F1-score for LDA_Fisher_MDC: 0.978 ± 0.001
+Mean Sensitivity (Recall) for LDA_Fisher_MDC: 1.000 ± 0.000
+Mean AUC for LDA_Fisher_MDC: 0.994794669755882
+
+
+#########################################################################
+
+
+Mean Accuracy for LDA_Fisher_MDC: 0.975 ± 0.002
+Mean Specificity for LDA_Fisher_MDC: 0.941 ± 0.005
+Mean F1-score for LDA_Fisher_MDC: 0.978 ± 0.001
+Mean Sensitivity (Recall) for LDA_Fisher_MDC: 1.000 ± 0.000
+Mean AUC for LDA_Fisher_MDC: 0.9948185396444706
+
+
+#########################################################################
+
+
+Mean Accuracy for LDA_Fisher_MDC: 0.974 ± 0.001
+Mean Specificity for LDA_Fisher_MDC: 0.940 ± 0.003
+Mean F1-score for LDA_Fisher_MDC: 0.978 ± 0.001
+Mean Sensitivity (Recall) for LDA_Fisher_MDC: 1.000 ± 0.000
+Mean AUC for LDA_Fisher_MDC: 0.9948103440456824
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.993 ± 0.001
+Mean Specificity for Bayes_Classifier: 0.993 ± 0.000
+Mean F1-score for Bayes_Classifier: 0.994 ± 0.001
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.994 ± 0.001
+Mean AUC for Bayes_Classifier: 0.9947274935257889
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.993 ± 0.000
+Mean Specificity for Bayes_Classifier: 0.993 ± 0.000
+Mean F1-score for Bayes_Classifier: 0.994 ± 0.000
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.993 ± 0.001
+Mean AUC for Bayes_Classifier: 0.9947421410381065
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.993 ± 0.000
+Mean Specificity for Bayes_Classifier: 0.993 ± 0.000
+Mean F1-score for Bayes_Classifier: 0.994 ± 0.000
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.994 ± 0.001
+Mean AUC for Bayes_Classifier: 0.9947275546216974
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.993 ± 0.000
+Mean Specificity for Bayes_Classifier: 0.993 ± 0.000
+Mean F1-score for Bayes_Classifier: 0.994 ± 0.000
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.993 ± 0.001
+Mean AUC for Bayes_Classifier: 0.9947421743224815
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.993 ± 0.001
+Mean Specificity for Bayes_Classifier: 0.993 ± 0.001
+Mean F1-score for Bayes_Classifier: 0.994 ± 0.001
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.993 ± 0.001
+Mean AUC for Bayes_Classifier: 0.9947460326737682
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.997 ± 0.000
+Mean Specificity for KNN_Classifier: 0.995 ± 0.000
+Mean F1-score for KNN_Classifier: 0.998 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.999 ± 0.000
+Mean AUC for KNN_Classifier: 0.9946023766356211
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.997 ± 0.000
+Mean Specificity for KNN_Classifier: 0.995 ± 0.001
+Mean F1-score for KNN_Classifier: 0.998 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.999 ± 0.000
+Mean AUC for KNN_Classifier: 0.9945360172273656
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.997 ± 0.000
+Mean Specificity for KNN_Classifier: 0.995 ± 0.000
+Mean F1-score for KNN_Classifier: 0.998 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.999 ± 0.000
+Mean AUC for KNN_Classifier: 0.9945546412569746
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.997 ± 0.000
+Mean Specificity for KNN_Classifier: 0.995 ± 0.001
+Mean F1-score for KNN_Classifier: 0.998 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.999 ± 0.000
+Mean AUC for KNN_Classifier: 0.9945841674144577
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.997 ± 0.000
+Mean Specificity for KNN_Classifier: 0.995 ± 0.001
+Mean F1-score for KNN_Classifier: 0.998 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.999 ± 0.000
+Mean AUC for KNN_Classifier: 0.9945618978579588
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.997 ± 0.000
+Mean Specificity for SVM_Classifier: 0.993 ± 0.001
+Mean F1-score for SVM_Classifier: 0.997 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 1.000 ± 0.000
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.997 ± 0.000
+Mean Specificity for SVM_Classifier: 0.993 ± 0.001
+Mean F1-score for SVM_Classifier: 0.997 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 1.000 ± 0.000
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.997 ± 0.000
+Mean Specificity for SVM_Classifier: 0.993 ± 0.001
+Mean F1-score for SVM_Classifier: 0.997 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 1.000 ± 0.000
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.997 ± 0.000
+Mean Specificity for SVM_Classifier: 0.993 ± 0.001
+Mean F1-score for SVM_Classifier: 0.997 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 1.000 ± 0.000
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.997 ± 0.000
+Mean Specificity for SVM_Classifier: 0.993 ± 0.000
+Mean F1-score for SVM_Classifier: 0.997 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 1.000 ± 0.000
+
+
+#########################################################################
+
+
+TESTING CLASSIFIERS FOR DATASET KW_PCA...
+TESTING KNN...
+Best k = 1
+Minimum Average Error = 0.34%
+TESTING SVM...
+Best C = 100.0
+Minimum Average Error = 15.97%
+Mean Accuracy for Euclidean_MDC: 0.875 ± 0.003
+Mean Specificity for Euclidean_MDC: 0.758 ± 0.004
+Mean F1-score for Euclidean_MDC: 0.898 ± 0.003
+Mean Sensitivity (Recall) for Euclidean_MDC: 0.963 ± 0.007
+Mean AUC for Euclidean_MDC: 0.8077857900576905
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.875 ± 0.004
+Mean Specificity for Euclidean_MDC: 0.758 ± 0.002
+Mean F1-score for Euclidean_MDC: 0.898 ± 0.003
+Mean Sensitivity (Recall) for Euclidean_MDC: 0.963 ± 0.006
+Mean AUC for Euclidean_MDC: 0.8074163671494143
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.875 ± 0.005
+Mean Specificity for Euclidean_MDC: 0.758 ± 0.003
+Mean F1-score for Euclidean_MDC: 0.898 ± 0.004
+Mean Sensitivity (Recall) for Euclidean_MDC: 0.962 ± 0.006
+Mean AUC for Euclidean_MDC: 0.8075708133149131
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.875 ± 0.004
+Mean Specificity for Euclidean_MDC: 0.758 ± 0.001
+Mean F1-score for Euclidean_MDC: 0.898 ± 0.003
+Mean Sensitivity (Recall) for Euclidean_MDC: 0.963 ± 0.007
+Mean AUC for Euclidean_MDC: 0.808024283078815
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.874 ± 0.001
+Mean Specificity for Euclidean_MDC: 0.758 ± 0.002
+Mean F1-score for Euclidean_MDC: 0.897 ± 0.001
+Mean Sensitivity (Recall) for Euclidean_MDC: 0.962 ± 0.003
+Mean AUC for Euclidean_MDC: 0.8062277598596566
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.966 ± 0.001
+Mean Specificity for Mahalanobis_MDC: 0.923 ± 0.003
+Mean F1-score for Mahalanobis_MDC: 0.971 ± 0.001
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.998 ± 0.000
+Mean AUC for Mahalanobis_MDC: 0.8997056157259973
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.966 ± 0.001
+Mean Specificity for Mahalanobis_MDC: 0.923 ± 0.002
+Mean F1-score for Mahalanobis_MDC: 0.971 ± 0.001
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.998 ± 0.001
+Mean AUC for Mahalanobis_MDC: 0.8999306168207479
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.966 ± 0.001
+Mean Specificity for Mahalanobis_MDC: 0.923 ± 0.003
+Mean F1-score for Mahalanobis_MDC: 0.971 ± 0.001
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.998 ± 0.000
+Mean AUC for Mahalanobis_MDC: 0.8999233051010722
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.966 ± 0.001
+Mean Specificity for Mahalanobis_MDC: 0.923 ± 0.002
+Mean F1-score for Mahalanobis_MDC: 0.971 ± 0.001
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.998 ± 0.000
+Mean AUC for Mahalanobis_MDC: 0.8995628950015458
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.966 ± 0.001
+Mean Specificity for Mahalanobis_MDC: 0.922 ± 0.003
+Mean F1-score for Mahalanobis_MDC: 0.971 ± 0.001
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.998 ± 0.000
+Mean AUC for Mahalanobis_MDC: 0.8997903847594089
+
+
+#########################################################################
+
+
+Mean Accuracy for LDA_Fisher_MDC: 0.899 ± 0.002
+Mean Specificity for LDA_Fisher_MDC: 0.813 ± 0.003
+Mean F1-score for LDA_Fisher_MDC: 0.916 ± 0.002
+Mean Sensitivity (Recall) for LDA_Fisher_MDC: 0.963 ± 0.001
+Mean AUC for LDA_Fisher_MDC: 0.9720752286057246
+
+
+#########################################################################
+
+
+Mean Accuracy for LDA_Fisher_MDC: 0.899 ± 0.004
+Mean Specificity for LDA_Fisher_MDC: 0.813 ± 0.008
+Mean F1-score for LDA_Fisher_MDC: 0.916 ± 0.003
+Mean Sensitivity (Recall) for LDA_Fisher_MDC: 0.964 ± 0.001
+Mean AUC for LDA_Fisher_MDC: 0.9720568926699336
+
+
+#########################################################################
+
+
+Mean Accuracy for LDA_Fisher_MDC: 0.899 ± 0.002
+Mean Specificity for LDA_Fisher_MDC: 0.812 ± 0.003
+Mean F1-score for LDA_Fisher_MDC: 0.916 ± 0.002
+Mean Sensitivity (Recall) for LDA_Fisher_MDC: 0.963 ± 0.002
+Mean AUC for LDA_Fisher_MDC: 0.9720394024989881
+
+
+#########################################################################
+
+
+Mean Accuracy for LDA_Fisher_MDC: 0.899 ± 0.003
+Mean Specificity for LDA_Fisher_MDC: 0.813 ± 0.006
+Mean F1-score for LDA_Fisher_MDC: 0.916 ± 0.002
+Mean Sensitivity (Recall) for LDA_Fisher_MDC: 0.964 ± 0.002
+Mean AUC for LDA_Fisher_MDC: 0.9721357582354734
+
+
+#########################################################################
+
+
+Mean Accuracy for LDA_Fisher_MDC: 0.899 ± 0.002
+Mean Specificity for LDA_Fisher_MDC: 0.812 ± 0.004
+Mean F1-score for LDA_Fisher_MDC: 0.916 ± 0.002
+Mean Sensitivity (Recall) for LDA_Fisher_MDC: 0.964 ± 0.001
+Mean AUC for LDA_Fisher_MDC: 0.9719896316152746
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.937 ± 0.003
+Mean Specificity for Bayes_Classifier: 0.864 ± 0.007
+Mean F1-score for Bayes_Classifier: 0.947 ± 0.002
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.992 ± 0.001
+Mean AUC for Bayes_Classifier: 0.9905747863636051
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.935 ± 0.003
+Mean Specificity for Bayes_Classifier: 0.860 ± 0.006
+Mean F1-score for Bayes_Classifier: 0.946 ± 0.002
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.992 ± 0.001
+Mean AUC for Bayes_Classifier: 0.9905240079921952
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.936 ± 0.003
+Mean Specificity for Bayes_Classifier: 0.860 ± 0.006
+Mean F1-score for Bayes_Classifier: 0.946 ± 0.002
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.992 ± 0.001
+Mean AUC for Bayes_Classifier: 0.9905369973230514
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.935 ± 0.002
+Mean Specificity for Bayes_Classifier: 0.859 ± 0.004
+Mean F1-score for Bayes_Classifier: 0.946 ± 0.002
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.992 ± 0.000
+Mean AUC for Bayes_Classifier: 0.9905408823868564
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.935 ± 0.002
+Mean Specificity for Bayes_Classifier: 0.860 ± 0.004
+Mean F1-score for Bayes_Classifier: 0.946 ± 0.001
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.992 ± 0.001
+Mean AUC for Bayes_Classifier: 0.9905223778269246
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.997 ± 0.000
+Mean Specificity for KNN_Classifier: 0.996 ± 0.001
+Mean F1-score for KNN_Classifier: 0.998 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.998 ± 0.001
+Mean AUC for KNN_Classifier: 0.9937962143644286
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.997 ± 0.001
+Mean Specificity for KNN_Classifier: 0.996 ± 0.001
+Mean F1-score for KNN_Classifier: 0.997 ± 0.001
+Mean Sensitivity (Recall) for KNN_Classifier: 0.997 ± 0.001
+Mean AUC for KNN_Classifier: 0.9936997495647776
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.997 ± 0.000
+Mean Specificity for KNN_Classifier: 0.996 ± 0.001
+Mean F1-score for KNN_Classifier: 0.997 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.998 ± 0.000
+Mean AUC for KNN_Classifier: 0.9937559292484869
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.997 ± 0.000
+Mean Specificity for KNN_Classifier: 0.996 ± 0.001
+Mean F1-score for KNN_Classifier: 0.997 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.998 ± 0.000
+Mean AUC for KNN_Classifier: 0.993730110015193
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.997 ± 0.001
+Mean Specificity for KNN_Classifier: 0.996 ± 0.001
+Mean F1-score for KNN_Classifier: 0.997 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.998 ± 0.000
+Mean AUC for KNN_Classifier: 0.9937519952287568
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.998 ± 0.000
+Mean Specificity for SVM_Classifier: 0.997 ± 0.000
+Mean F1-score for SVM_Classifier: 0.999 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 0.999 ± 0.000
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.998 ± 0.000
+Mean Specificity for SVM_Classifier: 0.998 ± 0.000
+Mean F1-score for SVM_Classifier: 0.999 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 0.999 ± 0.000
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.998 ± 0.000
+Mean Specificity for SVM_Classifier: 0.997 ± 0.001
+Mean F1-score for SVM_Classifier: 0.998 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 0.999 ± 0.000
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.998 ± 0.000
+Mean Specificity for SVM_Classifier: 0.997 ± 0.000
+Mean F1-score for SVM_Classifier: 0.999 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 0.999 ± 0.000
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.998 ± 0.000
+Mean Specificity for SVM_Classifier: 0.997 ± 0.000
+Mean F1-score for SVM_Classifier: 0.999 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 0.999 ± 0.000
+
+
+#########################################################################
+
+
+TESTING CLASSIFIERS FOR DATASET KW_LDA...
+TESTING KNN...
+Best k = 13
+Minimum Average Error = 0.71%
+TESTING SVM...
+Best C = 0.01
+Minimum Average Error = 3.50%
+Mean Accuracy for Euclidean_MDC: 0.971 ± 0.001
+Mean Specificity for Euclidean_MDC: 0.933 ± 0.003
+Mean F1-score for Euclidean_MDC: 0.976 ± 0.001
+Mean Sensitivity (Recall) for Euclidean_MDC: 1.000 ± 0.000
+Mean AUC for Euclidean_MDC: 0.99396634354249
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.971 ± 0.000
+Mean Specificity for Euclidean_MDC: 0.933 ± 0.001
+Mean F1-score for Euclidean_MDC: 0.976 ± 0.000
+Mean Sensitivity (Recall) for Euclidean_MDC: 1.000 ± 0.000
+Mean AUC for Euclidean_MDC: 0.9939672475344118
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.971 ± 0.000
+Mean Specificity for Euclidean_MDC: 0.933 ± 0.001
+Mean F1-score for Euclidean_MDC: 0.976 ± 0.000
+Mean Sensitivity (Recall) for Euclidean_MDC: 1.000 ± 0.000
+Mean AUC for Euclidean_MDC: 0.9939639076258959
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.971 ± 0.001
+Mean Specificity for Euclidean_MDC: 0.933 ± 0.002
+Mean F1-score for Euclidean_MDC: 0.976 ± 0.001
+Mean Sensitivity (Recall) for Euclidean_MDC: 1.000 ± 0.000
+Mean AUC for Euclidean_MDC: 0.9939655576190777
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.971 ± 0.001
+Mean Specificity for Euclidean_MDC: 0.933 ± 0.002
+Mean F1-score for Euclidean_MDC: 0.976 ± 0.001
+Mean Sensitivity (Recall) for Euclidean_MDC: 1.000 ± 0.000
+Mean AUC for Euclidean_MDC: 0.9939521442826096
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.992 ± 0.001
+Mean Specificity for Mahalanobis_MDC: 0.987 ± 0.001
+Mean F1-score for Mahalanobis_MDC: 0.993 ± 0.001
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.996 ± 0.001
+Mean AUC for Mahalanobis_MDC: 0.9939619935580024
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.992 ± 0.001
+Mean Specificity for Mahalanobis_MDC: 0.987 ± 0.001
+Mean F1-score for Mahalanobis_MDC: 0.993 ± 0.001
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.996 ± 0.001
+Mean AUC for Mahalanobis_MDC: 0.9939531033104866
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.992 ± 0.000
+Mean Specificity for Mahalanobis_MDC: 0.987 ± 0.000
+Mean F1-score for Mahalanobis_MDC: 0.993 ± 0.000
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.996 ± 0.001
+Mean AUC for Mahalanobis_MDC: 0.9939409750517587
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.992 ± 0.000
+Mean Specificity for Mahalanobis_MDC: 0.987 ± 0.001
+Mean F1-score for Mahalanobis_MDC: 0.993 ± 0.000
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.996 ± 0.000
+Mean AUC for Mahalanobis_MDC: 0.9939612469819703
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.992 ± 0.000
+Mean Specificity for Mahalanobis_MDC: 0.987 ± 0.001
+Mean F1-score for Mahalanobis_MDC: 0.993 ± 0.000
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.996 ± 0.001
+Mean AUC for Mahalanobis_MDC: 0.9939693107225438
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.991 ± 0.000
+Mean Specificity for Bayes_Classifier: 0.981 ± 0.001
+Mean F1-score for Bayes_Classifier: 0.992 ± 0.000
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.999 ± 0.000
+Mean AUC for Bayes_Classifier: 0.9945309994476124
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.991 ± 0.000
+Mean Specificity for Bayes_Classifier: 0.981 ± 0.002
+Mean F1-score for Bayes_Classifier: 0.992 ± 0.000
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.999 ± 0.001
+Mean AUC for Bayes_Classifier: 0.9945326428814205
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.991 ± 0.001
+Mean Specificity for Bayes_Classifier: 0.981 ± 0.002
+Mean F1-score for Bayes_Classifier: 0.992 ± 0.001
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.999 ± 0.001
+Mean AUC for Bayes_Classifier: 0.994523770580421
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.991 ± 0.000
+Mean Specificity for Bayes_Classifier: 0.981 ± 0.001
+Mean F1-score for Bayes_Classifier: 0.992 ± 0.000
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.999 ± 0.000
+Mean AUC for Bayes_Classifier: 0.9945313924826269
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.991 ± 0.000
+Mean Specificity for Bayes_Classifier: 0.982 ± 0.001
+Mean F1-score for Bayes_Classifier: 0.992 ± 0.000
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.999 ± 0.000
+Mean AUC for Bayes_Classifier: 0.9945355534282073
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.993 ± 0.000
+Mean Specificity for KNN_Classifier: 0.986 ± 0.001
+Mean F1-score for KNN_Classifier: 0.994 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.998 ± 0.000
+Mean AUC for KNN_Classifier: 0.9946423320154207
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.993 ± 0.000
+Mean Specificity for KNN_Classifier: 0.986 ± 0.001
+Mean F1-score for KNN_Classifier: 0.994 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.998 ± 0.000
+Mean AUC for KNN_Classifier: 0.9946716413642808
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.993 ± 0.000
+Mean Specificity for KNN_Classifier: 0.986 ± 0.001
+Mean F1-score for KNN_Classifier: 0.994 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.998 ± 0.000
+Mean AUC for KNN_Classifier: 0.994702195455687
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.993 ± 0.000
+Mean Specificity for KNN_Classifier: 0.986 ± 0.000
+Mean F1-score for KNN_Classifier: 0.994 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.998 ± 0.000
+Mean AUC for KNN_Classifier: 0.994693993918118
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.993 ± 0.001
+Mean Specificity for KNN_Classifier: 0.986 ± 0.001
+Mean F1-score for KNN_Classifier: 0.994 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.998 ± 0.000
+Mean AUC for KNN_Classifier: 0.9946290045008978
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.993 ± 0.000
+Mean Specificity for SVM_Classifier: 0.984 ± 0.001
+Mean F1-score for SVM_Classifier: 0.994 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 0.999 ± 0.000
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.993 ± 0.000
+Mean Specificity for SVM_Classifier: 0.984 ± 0.001
+Mean F1-score for SVM_Classifier: 0.994 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 0.999 ± 0.000
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.993 ± 0.000
+Mean Specificity for SVM_Classifier: 0.984 ± 0.001
+Mean F1-score for SVM_Classifier: 0.994 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 0.999 ± 0.000
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.993 ± 0.000
+Mean Specificity for SVM_Classifier: 0.984 ± 0.001
+Mean F1-score for SVM_Classifier: 0.994 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 0.999 ± 0.000
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.993 ± 0.001
+Mean Specificity for SVM_Classifier: 0.984 ± 0.001
+Mean F1-score for SVM_Classifier: 0.994 ± 0.001
+Mean Sensitivity (Recall) for SVM_Classifier: 0.999 ± 0.000
+
+
+#########################################################################
+
+
+
+
+#########################################################################
+
+
+Performing PCA for AUC...
+The main PC contributes to 67.49144381886357% of the variance.
+Optimal number of components according to Kaiser: 8
+Variance (%) retained accourding to Kaiser: 37.06901338433724
+Variance (%) retained accourding to Scree: 79.22684078800117
+Shape of dataset after PCA for AUC is: (235795, 8)
+
+
+#########################################################################
+
+
+Performing LDA for AUC...
+Shape of dataset after LDA is AUC: (235795, 1)
+
+
+#########################################################################
+
+
+TESTING CLASSIFIERS FOR DATASET AUC_Natural...
+TESTING KNN...
+Best k = 5
+Minimum Average Error = 0.39%
+TESTING SVM...
+Best C = 100.0
+Minimum Average Error = 0.33%
+Mean Accuracy for Euclidean_MDC: 0.778 ± 0.001
+Mean Specificity for Euclidean_MDC: 0.805 ± 0.003
+Mean F1-score for Euclidean_MDC: 0.796 ± 0.001
+Mean Sensitivity (Recall) for Euclidean_MDC: 0.758 ± 0.003
+Mean AUC for Euclidean_MDC: 0.9248967501858412
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.778 ± 0.001
+Mean Specificity for Euclidean_MDC: 0.805 ± 0.001
+Mean F1-score for Euclidean_MDC: 0.796 ± 0.002
+Mean Sensitivity (Recall) for Euclidean_MDC: 0.758 ± 0.002
+Mean AUC for Euclidean_MDC: 0.9248640779826888
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.778 ± 0.001
+Mean Specificity for Euclidean_MDC: 0.805 ± 0.001
+Mean F1-score for Euclidean_MDC: 0.796 ± 0.002
+Mean Sensitivity (Recall) for Euclidean_MDC: 0.758 ± 0.002
+Mean AUC for Euclidean_MDC: 0.9249352029022211
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.778 ± 0.002
+Mean Specificity for Euclidean_MDC: 0.805 ± 0.002
+Mean F1-score for Euclidean_MDC: 0.796 ± 0.003
+Mean Sensitivity (Recall) for Euclidean_MDC: 0.758 ± 0.004
+Mean AUC for Euclidean_MDC: 0.9248989171009488
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.778 ± 0.001
+Mean Specificity for Euclidean_MDC: 0.805 ± 0.001
+Mean F1-score for Euclidean_MDC: 0.796 ± 0.001
+Mean Sensitivity (Recall) for Euclidean_MDC: 0.758 ± 0.002
+Mean AUC for Euclidean_MDC: 0.9249135511474597
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.938 ± 0.002
+Mean Specificity for Mahalanobis_MDC: 0.855 ± 0.005
+Mean F1-score for Mahalanobis_MDC: 0.948 ± 0.002
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 1.000 ± 0.000
+Mean AUC for Mahalanobis_MDC: 0.8643429290515475
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.938 ± 0.002
+Mean Specificity for Mahalanobis_MDC: 0.856 ± 0.004
+Mean F1-score for Mahalanobis_MDC: 0.949 ± 0.001
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 1.000 ± 0.000
+Mean AUC for Mahalanobis_MDC: 0.8642791614644806
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.938 ± 0.002
+Mean Specificity for Mahalanobis_MDC: 0.856 ± 0.006
+Mean F1-score for Mahalanobis_MDC: 0.949 ± 0.002
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.999 ± 0.000
+Mean AUC for Mahalanobis_MDC: 0.8644436869320494
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.938 ± 0.002
+Mean Specificity for Mahalanobis_MDC: 0.855 ± 0.004
+Mean F1-score for Mahalanobis_MDC: 0.948 ± 0.001
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.999 ± 0.000
+Mean AUC for Mahalanobis_MDC: 0.8644197897784588
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.938 ± 0.002
+Mean Specificity for Mahalanobis_MDC: 0.855 ± 0.004
+Mean F1-score for Mahalanobis_MDC: 0.948 ± 0.001
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.999 ± 0.000
+Mean AUC for Mahalanobis_MDC: 0.8644725056900273
+
+
+#########################################################################
+
+
+Mean Accuracy for LDA_Fisher_MDC: 0.971 ± 0.002
+Mean Specificity for LDA_Fisher_MDC: 0.931 ± 0.006
+Mean F1-score for LDA_Fisher_MDC: 0.975 ± 0.002
+Mean Sensitivity (Recall) for LDA_Fisher_MDC: 1.000 ± 0.000
+Mean AUC for LDA_Fisher_MDC: 0.9948963643121604
+
+
+#########################################################################
+
+
+Mean Accuracy for LDA_Fisher_MDC: 0.970 ± 0.003
+Mean Specificity for LDA_Fisher_MDC: 0.931 ± 0.007
+Mean F1-score for LDA_Fisher_MDC: 0.975 ± 0.003
+Mean Sensitivity (Recall) for LDA_Fisher_MDC: 1.000 ± 0.000
+Mean AUC for LDA_Fisher_MDC: 0.9948906509208938
+
+
+#########################################################################
+
+
+Mean Accuracy for LDA_Fisher_MDC: 0.971 ± 0.002
+Mean Specificity for LDA_Fisher_MDC: 0.931 ± 0.004
+Mean F1-score for LDA_Fisher_MDC: 0.975 ± 0.001
+Mean Sensitivity (Recall) for LDA_Fisher_MDC: 1.000 ± 0.000
+Mean AUC for LDA_Fisher_MDC: 0.9948988265590533
+
+
+#########################################################################
+
+
+Mean Accuracy for LDA_Fisher_MDC: 0.971 ± 0.003
+Mean Specificity for LDA_Fisher_MDC: 0.932 ± 0.006
+Mean F1-score for LDA_Fisher_MDC: 0.975 ± 0.002
+Mean Sensitivity (Recall) for LDA_Fisher_MDC: 1.000 ± 0.000
+Mean AUC for LDA_Fisher_MDC: 0.994900149757298
+
+
+#########################################################################
+
+
+Mean Accuracy for LDA_Fisher_MDC: 0.971 ± 0.002
+Mean Specificity for LDA_Fisher_MDC: 0.931 ± 0.004
+Mean F1-score for LDA_Fisher_MDC: 0.975 ± 0.001
+Mean Sensitivity (Recall) for LDA_Fisher_MDC: 1.000 ± 0.000
+Mean AUC for LDA_Fisher_MDC: 0.9948990139840643
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.996 ± 0.000
+Mean Specificity for Bayes_Classifier: 0.992 ± 0.000
+Mean F1-score for Bayes_Classifier: 0.996 ± 0.000
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.998 ± 0.000
+Mean AUC for Bayes_Classifier: 0.9947312101298835
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.996 ± 0.000
+Mean Specificity for Bayes_Classifier: 0.992 ± 0.000
+Mean F1-score for Bayes_Classifier: 0.996 ± 0.000
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.998 ± 0.000
+Mean AUC for Bayes_Classifier: 0.9947421410381065
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.996 ± 0.000
+Mean Specificity for Bayes_Classifier: 0.992 ± 0.000
+Mean F1-score for Bayes_Classifier: 0.996 ± 0.000
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.998 ± 0.000
+Mean AUC for Bayes_Classifier: 0.9947312456430435
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.996 ± 0.000
+Mean Specificity for Bayes_Classifier: 0.992 ± 0.000
+Mean F1-score for Bayes_Classifier: 0.996 ± 0.000
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.998 ± 0.000
+Mean AUC for Bayes_Classifier: 0.9947421743224815
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.995 ± 0.001
+Mean Specificity for Bayes_Classifier: 0.992 ± 0.001
+Mean F1-score for Bayes_Classifier: 0.996 ± 0.001
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.998 ± 0.000
+Mean AUC for Bayes_Classifier: 0.9947460326737682
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.996 ± 0.000
+Mean Specificity for KNN_Classifier: 0.991 ± 0.000
+Mean F1-score for KNN_Classifier: 0.997 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 1.000 ± 0.000
+Mean AUC for KNN_Classifier: 0.9949346101978865
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.996 ± 0.000
+Mean Specificity for KNN_Classifier: 0.991 ± 0.001
+Mean F1-score for KNN_Classifier: 0.997 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 1.000 ± 0.000
+Mean AUC for KNN_Classifier: 0.9949384324766931
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.996 ± 0.000
+Mean Specificity for KNN_Classifier: 0.991 ± 0.001
+Mean F1-score for KNN_Classifier: 0.997 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 1.000 ± 0.000
+Mean AUC for KNN_Classifier: 0.9949346402827746
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.996 ± 0.000
+Mean Specificity for KNN_Classifier: 0.991 ± 0.001
+Mean F1-score for KNN_Classifier: 0.997 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 1.000 ± 0.000
+Mean AUC for KNN_Classifier: 0.9949456457968332
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.996 ± 0.001
+Mean Specificity for KNN_Classifier: 0.992 ± 0.001
+Mean F1-score for KNN_Classifier: 0.997 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 1.000 ± 0.000
+Mean AUC for KNN_Classifier: 0.994943227320736
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.997 ± 0.000
+Mean Specificity for SVM_Classifier: 0.992 ± 0.001
+Mean F1-score for SVM_Classifier: 0.997 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 1.000 ± 0.000
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.997 ± 0.000
+Mean Specificity for SVM_Classifier: 0.992 ± 0.001
+Mean F1-score for SVM_Classifier: 0.997 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 1.000 ± 0.000
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.997 ± 0.000
+Mean Specificity for SVM_Classifier: 0.992 ± 0.001
+Mean F1-score for SVM_Classifier: 0.997 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 1.000 ± 0.000
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.997 ± 0.000
+Mean Specificity for SVM_Classifier: 0.992 ± 0.001
+Mean F1-score for SVM_Classifier: 0.997 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 1.000 ± 0.000
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.997 ± 0.000
+Mean Specificity for SVM_Classifier: 0.992 ± 0.000
+Mean F1-score for SVM_Classifier: 0.997 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 1.000 ± 0.000
+
+
+#########################################################################
+
+
+TESTING CLASSIFIERS FOR DATASET AUC_PCA...
+TESTING KNN...
+Best k = 1
+Minimum Average Error = 0.22%
+TESTING SVM...
+Best C = 100.0
+Minimum Average Error = 9.34%
+Mean Accuracy for Euclidean_MDC: 0.902 ± 0.008
+Mean Specificity for Euclidean_MDC: 0.791 ± 0.014
+Mean F1-score for Euclidean_MDC: 0.920 ± 0.006
+Mean Sensitivity (Recall) for Euclidean_MDC: 0.986 ± 0.003
+Mean AUC for Euclidean_MDC: 0.7732267672641243
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.902 ± 0.003
+Mean Specificity for Euclidean_MDC: 0.791 ± 0.005
+Mean F1-score for Euclidean_MDC: 0.920 ± 0.003
+Mean Sensitivity (Recall) for Euclidean_MDC: 0.985 ± 0.002
+Mean AUC for Euclidean_MDC: 0.7726950609814435
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.901 ± 0.002
+Mean Specificity for Euclidean_MDC: 0.788 ± 0.003
+Mean F1-score for Euclidean_MDC: 0.919 ± 0.002
+Mean Sensitivity (Recall) for Euclidean_MDC: 0.984 ± 0.002
+Mean AUC for Euclidean_MDC: 0.7698264132887869
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.900 ± 0.003
+Mean Specificity for Euclidean_MDC: 0.788 ± 0.004
+Mean F1-score for Euclidean_MDC: 0.919 ± 0.002
+Mean Sensitivity (Recall) for Euclidean_MDC: 0.984 ± 0.001
+Mean AUC for Euclidean_MDC: 0.7698550369871554
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.886 ± 0.030
+Mean Specificity for Euclidean_MDC: 0.778 ± 0.024
+Mean F1-score for Euclidean_MDC: 0.907 ± 0.026
+Mean Sensitivity (Recall) for Euclidean_MDC: 0.968 ± 0.034
+Mean AUC for Euclidean_MDC: 0.7558003097760355
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.981 ± 0.000
+Mean Specificity for Mahalanobis_MDC: 0.957 ± 0.001
+Mean F1-score for Mahalanobis_MDC: 0.984 ± 0.000
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.999 ± 0.000
+Mean AUC for Mahalanobis_MDC: 0.9489917203499422
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.981 ± 0.001
+Mean Specificity for Mahalanobis_MDC: 0.957 ± 0.002
+Mean F1-score for Mahalanobis_MDC: 0.984 ± 0.001
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.999 ± 0.000
+Mean AUC for Mahalanobis_MDC: 0.9488741224043127
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.981 ± 0.001
+Mean Specificity for Mahalanobis_MDC: 0.957 ± 0.001
+Mean F1-score for Mahalanobis_MDC: 0.984 ± 0.001
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.999 ± 0.000
+Mean AUC for Mahalanobis_MDC: 0.9490185690152294
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.981 ± 0.001
+Mean Specificity for Mahalanobis_MDC: 0.957 ± 0.003
+Mean F1-score for Mahalanobis_MDC: 0.984 ± 0.001
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.999 ± 0.000
+Mean AUC for Mahalanobis_MDC: 0.9488543548266832
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.981 ± 0.001
+Mean Specificity for Mahalanobis_MDC: 0.957 ± 0.002
+Mean F1-score for Mahalanobis_MDC: 0.984 ± 0.000
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.999 ± 0.000
+Mean AUC for Mahalanobis_MDC: 0.9490218787197344
+
+
+#########################################################################
+
+
+Mean Accuracy for LDA_Fisher_MDC: 0.945 ± 0.002
+Mean Specificity for LDA_Fisher_MDC: 0.883 ± 0.004
+Mean F1-score for LDA_Fisher_MDC: 0.954 ± 0.002
+Mean Sensitivity (Recall) for LDA_Fisher_MDC: 0.992 ± 0.000
+Mean AUC for LDA_Fisher_MDC: 0.9893851637194442
+
+
+#########################################################################
+
+
+Mean Accuracy for LDA_Fisher_MDC: 0.945 ± 0.003
+Mean Specificity for LDA_Fisher_MDC: 0.883 ± 0.007
+Mean F1-score for LDA_Fisher_MDC: 0.954 ± 0.003
+Mean Sensitivity (Recall) for LDA_Fisher_MDC: 0.992 ± 0.001
+Mean AUC for LDA_Fisher_MDC: 0.9893757882035908
+
+
+#########################################################################
+
+
+Mean Accuracy for LDA_Fisher_MDC: 0.945 ± 0.002
+Mean Specificity for LDA_Fisher_MDC: 0.883 ± 0.003
+Mean F1-score for LDA_Fisher_MDC: 0.954 ± 0.002
+Mean Sensitivity (Recall) for LDA_Fisher_MDC: 0.992 ± 0.000
+Mean AUC for LDA_Fisher_MDC: 0.989391456888211
+
+
+#########################################################################
+
+
+Mean Accuracy for LDA_Fisher_MDC: 0.945 ± 0.002
+Mean Specificity for LDA_Fisher_MDC: 0.883 ± 0.006
+Mean F1-score for LDA_Fisher_MDC: 0.954 ± 0.002
+Mean Sensitivity (Recall) for LDA_Fisher_MDC: 0.992 ± 0.001
+Mean AUC for LDA_Fisher_MDC: 0.9893949660711865
+
+
+#########################################################################
+
+
+Mean Accuracy for LDA_Fisher_MDC: 0.945 ± 0.002
+Mean Specificity for LDA_Fisher_MDC: 0.883 ± 0.004
+Mean F1-score for LDA_Fisher_MDC: 0.954 ± 0.001
+Mean Sensitivity (Recall) for LDA_Fisher_MDC: 0.992 ± 0.000
+Mean AUC for LDA_Fisher_MDC: 0.9893680644839834
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.935 ± 0.002
+Mean Specificity for Bayes_Classifier: 0.851 ± 0.005
+Mean F1-score for Bayes_Classifier: 0.946 ± 0.002
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.998 ± 0.000
+Mean AUC for Bayes_Classifier: 0.9919732989778848
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.934 ± 0.002
+Mean Specificity for Bayes_Classifier: 0.849 ± 0.006
+Mean F1-score for Bayes_Classifier: 0.945 ± 0.002
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.998 ± 0.000
+Mean AUC for Bayes_Classifier: 0.9919307886433125
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.935 ± 0.003
+Mean Specificity for Bayes_Classifier: 0.850 ± 0.008
+Mean F1-score for Bayes_Classifier: 0.946 ± 0.003
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.998 ± 0.001
+Mean AUC for Bayes_Classifier: 0.9919269333167484
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.934 ± 0.003
+Mean Specificity for Bayes_Classifier: 0.849 ± 0.008
+Mean F1-score for Bayes_Classifier: 0.945 ± 0.003
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.998 ± 0.000
+Mean AUC for Bayes_Classifier: 0.9919725569463044
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.934 ± 0.004
+Mean Specificity for Bayes_Classifier: 0.849 ± 0.009
+Mean F1-score for Bayes_Classifier: 0.945 ± 0.003
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.998 ± 0.000
+Mean AUC for Bayes_Classifier: 0.9919412918396789
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.998 ± 0.000
+Mean Specificity for KNN_Classifier: 0.997 ± 0.000
+Mean F1-score for KNN_Classifier: 0.998 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.998 ± 0.000
+Mean AUC for KNN_Classifier: 0.9941730230981413
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.998 ± 0.000
+Mean Specificity for KNN_Classifier: 0.997 ± 0.000
+Mean F1-score for KNN_Classifier: 0.998 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.998 ± 0.000
+Mean AUC for KNN_Classifier: 0.9941284358864351
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.998 ± 0.000
+Mean Specificity for KNN_Classifier: 0.997 ± 0.000
+Mean F1-score for KNN_Classifier: 0.998 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.998 ± 0.000
+Mean AUC for KNN_Classifier: 0.9941510148628858
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.998 ± 0.000
+Mean Specificity for KNN_Classifier: 0.997 ± 0.000
+Mean F1-score for KNN_Classifier: 0.998 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.998 ± 0.000
+Mean AUC for KNN_Classifier: 0.9941542679207444
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.998 ± 0.000
+Mean Specificity for KNN_Classifier: 0.997 ± 0.000
+Mean F1-score for KNN_Classifier: 0.998 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.998 ± 0.000
+Mean AUC for KNN_Classifier: 0.9941768714649118
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.997 ± 0.000
+Mean Specificity for SVM_Classifier: 0.997 ± 0.000
+Mean F1-score for SVM_Classifier: 0.998 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 0.998 ± 0.000
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.997 ± 0.000
+Mean Specificity for SVM_Classifier: 0.997 ± 0.000
+Mean F1-score for SVM_Classifier: 0.998 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 0.998 ± 0.000
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.997 ± 0.000
+Mean Specificity for SVM_Classifier: 0.997 ± 0.000
+Mean F1-score for SVM_Classifier: 0.998 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 0.997 ± 0.000
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.997 ± 0.000
+Mean Specificity for SVM_Classifier: 0.997 ± 0.000
+Mean F1-score for SVM_Classifier: 0.998 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 0.997 ± 0.001
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.997 ± 0.000
+Mean Specificity for SVM_Classifier: 0.997 ± 0.000
+Mean F1-score for SVM_Classifier: 0.998 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 0.998 ± 0.000
+
+
+#########################################################################
+
+
+TESTING CLASSIFIERS FOR DATASET AUC_LDA...
+TESTING KNN...
+Best k = 11
+Minimum Average Error = 0.66%
+TESTING SVM...
+Best C = 0.01
+Minimum Average Error = 3.95%
+Mean Accuracy for Euclidean_MDC: 0.967 ± 0.001
+Mean Specificity for Euclidean_MDC: 0.923 ± 0.002
+Mean F1-score for Euclidean_MDC: 0.972 ± 0.001
+Mean Sensitivity (Recall) for Euclidean_MDC: 1.000 ± 0.000
+Mean AUC for Euclidean_MDC: 0.9938755241234781
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.967 ± 0.001
+Mean Specificity for Euclidean_MDC: 0.923 ± 0.002
+Mean F1-score for Euclidean_MDC: 0.972 ± 0.001
+Mean Sensitivity (Recall) for Euclidean_MDC: 1.000 ± 0.000
+Mean AUC for Euclidean_MDC: 0.9938768273868044
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.967 ± 0.001
+Mean Specificity for Euclidean_MDC: 0.923 ± 0.002
+Mean F1-score for Euclidean_MDC: 0.972 ± 0.000
+Mean Sensitivity (Recall) for Euclidean_MDC: 1.000 ± 0.000
+Mean AUC for Euclidean_MDC: 0.9938712120774442
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.967 ± 0.001
+Mean Specificity for Euclidean_MDC: 0.923 ± 0.002
+Mean F1-score for Euclidean_MDC: 0.972 ± 0.001
+Mean Sensitivity (Recall) for Euclidean_MDC: 1.000 ± 0.000
+Mean AUC for Euclidean_MDC: 0.9938768013300169
+
+
+#########################################################################
+
+
+Mean Accuracy for Euclidean_MDC: 0.967 ± 0.000
+Mean Specificity for Euclidean_MDC: 0.923 ± 0.001
+Mean F1-score for Euclidean_MDC: 0.972 ± 0.000
+Mean Sensitivity (Recall) for Euclidean_MDC: 1.000 ± 0.000
+Mean AUC for Euclidean_MDC: 0.9938751568781383
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.992 ± 0.001
+Mean Specificity for Mahalanobis_MDC: 0.990 ± 0.001
+Mean F1-score for Mahalanobis_MDC: 0.993 ± 0.001
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.993 ± 0.001
+Mean AUC for Mahalanobis_MDC: 0.9938775246584245
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.992 ± 0.001
+Mean Specificity for Mahalanobis_MDC: 0.990 ± 0.001
+Mean F1-score for Mahalanobis_MDC: 0.993 ± 0.001
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.993 ± 0.002
+Mean AUC for Mahalanobis_MDC: 0.9938712753499167
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.992 ± 0.001
+Mean Specificity for Mahalanobis_MDC: 0.990 ± 0.000
+Mean F1-score for Mahalanobis_MDC: 0.993 ± 0.001
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.993 ± 0.001
+Mean AUC for Mahalanobis_MDC: 0.9938750642854994
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.992 ± 0.000
+Mean Specificity for Mahalanobis_MDC: 0.990 ± 0.001
+Mean F1-score for Mahalanobis_MDC: 0.993 ± 0.000
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.994 ± 0.001
+Mean AUC for Mahalanobis_MDC: 0.993875767338347
+
+
+#########################################################################
+
+
+Mean Accuracy for Mahalanobis_MDC: 0.992 ± 0.001
+Mean Specificity for Mahalanobis_MDC: 0.990 ± 0.001
+Mean F1-score for Mahalanobis_MDC: 0.993 ± 0.001
+Mean Sensitivity (Recall) for Mahalanobis_MDC: 0.993 ± 0.001
+Mean AUC for Mahalanobis_MDC: 0.9938708113250436
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.992 ± 0.000
+Mean Specificity for Bayes_Classifier: 0.983 ± 0.002
+Mean F1-score for Bayes_Classifier: 0.993 ± 0.000
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.998 ± 0.001
+Mean AUC for Bayes_Classifier: 0.9944386443482132
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.992 ± 0.000
+Mean Specificity for Bayes_Classifier: 0.983 ± 0.002
+Mean F1-score for Bayes_Classifier: 0.993 ± 0.000
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.998 ± 0.001
+Mean AUC for Bayes_Classifier: 0.9944388924673013
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.992 ± 0.000
+Mean Specificity for Bayes_Classifier: 0.983 ± 0.002
+Mean F1-score for Bayes_Classifier: 0.993 ± 0.000
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.998 ± 0.001
+Mean AUC for Bayes_Classifier: 0.9944381913828909
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.992 ± 0.000
+Mean Specificity for Bayes_Classifier: 0.983 ± 0.001
+Mean F1-score for Bayes_Classifier: 0.993 ± 0.000
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.998 ± 0.001
+Mean AUC for Bayes_Classifier: 0.9944397527486832
+
+
+#########################################################################
+
+
+Mean Accuracy for Bayes_Classifier: 0.992 ± 0.001
+Mean Specificity for Bayes_Classifier: 0.983 ± 0.001
+Mean F1-score for Bayes_Classifier: 0.993 ± 0.000
+Mean Sensitivity (Recall) for Bayes_Classifier: 0.998 ± 0.000
+Mean AUC for Bayes_Classifier: 0.9944405565794575
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.994 ± 0.000
+Mean Specificity for KNN_Classifier: 0.988 ± 0.000
+Mean F1-score for KNN_Classifier: 0.994 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.998 ± 0.000
+Mean AUC for KNN_Classifier: 0.9948120852837674
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.994 ± 0.000
+Mean Specificity for KNN_Classifier: 0.988 ± 0.001
+Mean F1-score for KNN_Classifier: 0.994 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.998 ± 0.000
+Mean AUC for KNN_Classifier: 0.9948049234643942
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.994 ± 0.000
+Mean Specificity for KNN_Classifier: 0.988 ± 0.000
+Mean F1-score for KNN_Classifier: 0.994 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.998 ± 0.000
+Mean AUC for KNN_Classifier: 0.9947962635355024
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.994 ± 0.000
+Mean Specificity for KNN_Classifier: 0.988 ± 0.000
+Mean F1-score for KNN_Classifier: 0.994 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.998 ± 0.000
+Mean AUC for KNN_Classifier: 0.9948014002381891
+
+
+#########################################################################
+
+
+Mean Accuracy for KNN_Classifier: 0.994 ± 0.001
+Mean Specificity for KNN_Classifier: 0.988 ± 0.001
+Mean F1-score for KNN_Classifier: 0.994 ± 0.000
+Mean Sensitivity (Recall) for KNN_Classifier: 0.998 ± 0.000
+Mean AUC for KNN_Classifier: 0.9948166502103367
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.994 ± 0.000
+Mean Specificity for SVM_Classifier: 0.987 ± 0.001
+Mean F1-score for SVM_Classifier: 0.994 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 0.998 ± 0.000
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.994 ± 0.000
+Mean Specificity for SVM_Classifier: 0.987 ± 0.001
+Mean F1-score for SVM_Classifier: 0.994 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 0.998 ± 0.000
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.994 ± 0.000
+Mean Specificity for SVM_Classifier: 0.987 ± 0.001
+Mean F1-score for SVM_Classifier: 0.994 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 0.998 ± 0.000
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.994 ± 0.000
+Mean Specificity for SVM_Classifier: 0.987 ± 0.000
+Mean F1-score for SVM_Classifier: 0.994 ± 0.000
+Mean Sensitivity (Recall) for SVM_Classifier: 0.998 ± 0.000
+
+
+#########################################################################
+
+
+Mean Accuracy for SVM_Classifier: 0.994 ± 0.001
+Mean Specificity for SVM_Classifier: 0.987 ± 0.001
+Mean F1-score for SVM_Classifier: 0.994 ± 0.001
+Mean Sensitivity (Recall) for SVM_Classifier: 0.998 ± 0.000
+
+
+#########################################################################
+
+

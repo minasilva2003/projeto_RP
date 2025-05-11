@@ -9,6 +9,7 @@ from roc_objective_functions import *
 from sklearn.metrics import accuracy_score, roc_curve, auc
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
+from sklearn.preprocessing import StandardScaler
 
 log_file_path = "main.log"
 
@@ -197,6 +198,7 @@ def remove_worst_features(X, Hs, percentage=0.2):
 
 #function to perform PCA and check which components to keep based on kaiser test
 def analyse_pca(X, feature_selection_type, show_img=True):
+    X  = StandardScaler().fit_transform(X)
     pca = PCA()
     pca.fit(X)
 

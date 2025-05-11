@@ -148,7 +148,7 @@ for feature_selection_type, fs_X in feature_selection_Xs.items():
       
         print_log("TESTING KNN...")
         knn_classifier = KnnClassifier(data_info = data_info_string)
-        knn_training_results = knn_classifier.knn_analysis(processed_X, Y)
+        knn_training_results = knn_classifier.knn_analysis(processed_X, Y, n_runs=3)
 
         # Guardar resultados
         df = pd.DataFrame(zip(*knn_training_results))
@@ -160,7 +160,7 @@ for feature_selection_type, fs_X in feature_selection_Xs.items():
         #12. verificar o melhor C value para o classifier SVM
         print_log("TESTING SVM...")
         svm_classifier = SvmClassifier(data_info = data_info_string, kernel_function="rbf")
-        svm_training_results = svm_classifier.svm_analysis(processed_X, Y)
+        svm_training_results = svm_classifier.svm_analysis(processed_X, Y, n_runs=3)
 
         # Guardar resultados
         df = pd.DataFrame(zip(*svm_training_results))
@@ -177,7 +177,7 @@ for feature_selection_type, fs_X in feature_selection_Xs.items():
             #14. Para cada classifier correr 10 vezes cross-validation e guardar resultados
             for classifier in classifiers: 
 
-                for run in range (10):
+                for run in range (5):
 
                     metrics = cross_validate_classifier(processed_X, Y, classifier, run+1, 5, view=False)
 
