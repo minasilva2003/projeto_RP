@@ -95,8 +95,6 @@ class SvmClassifier:
         return [C_values, avg_error, std_error]
     
     def train(self, X_train, Y_train):
-        # Get optimal C first
-        #self.svm_analysis(X_train, Y_train)
         self.classifier = SVC(C=self.C, kernel=self.kernel_function, probability=False)
         self.classifier.fit(X_train, Y_train)
 

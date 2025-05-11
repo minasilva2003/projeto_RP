@@ -107,9 +107,6 @@ class KnnClassifier:
 
     def train(self, X_train, Y_train):
 
-        #get optimal k first
-        #self.knn_analysis(X_train, Y_train)
-
         self.classifier = KNeighborsClassifier(n_neighbors=self.k)
         self.classifier.fit(X_train, Y_train)
         
